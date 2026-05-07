@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三言二鱼</title>
+  <meta name="description" content="独立开发，产品与文字">
+  <link rel="icon" href="https://blog.rockdork.cn/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #FAFAFA;
+      --bg-card: #FFFFFF;
+      --text-primary: #18181B;
+      --text-secondary: #71717A;
+      --text-tertiary: #A1A1AA;
+      --accent: #C44536;
+      --border: #E4E4E7;
+    }
+    [data-theme="dark"] {
+      --bg: #09090B;
+      --bg-card: #141416;
+      --text-primary: #FAFAFA;
+      --text-secondary: #A1A1AA;
+      --text-tertiary: #52525B;
+      --accent: #E05A4B;
+      --border: #27272A;
+    }
+    body {
+      font-family: 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ===== Hero 第一屏 ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 48px 32px;
+    }
+    .hero-title {
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--text-secondary);
+      margin-top: 16px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .hero-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: border-color 0.2s;
+    }
+    .hero-toggle:hover { border-color: var(--accent); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ===== 下方内容区 — 左右两栏 ===== */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px 64px;
+    }
+
+    /* --- 主布局：左作品 + 右卡片 --- */
+    .main-row {
+      display: grid;
+      grid-template-columns: 5fr 2fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    /* --- 左侧：作品区 --- */
+    .works-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .works-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* --- 右侧：介绍 + 公众号 --- */
+    .sidebar-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 240px;
+    }
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+    }
+    .about-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #000000;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      position: relative;
+      padding-bottom: 6px;
+      white-space: nowrap;
+    }
+    .about-name::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2em;
+      height: 1px;
+      background: #A1A1AA;
+    }
+    .about-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .about-card p:last-child { margin-bottom: 0; }
+    .highlight { color: var(--accent); font-weight: 600; }
+    .wechat-card {
+      background: #18181B;
+      border: 1px solid #27272A;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 240px;
+    }
+    .wechat-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: #FAFAFA; }
+    .wechat-card p { font-size: 0.85rem; color: #A1A1AA; margin-bottom: 14px; }
+    .qr-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 6px;
+      border: 5px solid #FFFFFF;
+    }
+    .work-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .work-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .work-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .work-icon { font-size: 1.4rem; }
+    .work-badge {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      background: var(--bg);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+    .work-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .work-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+    .work-arrow {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      color: var(--text-tertiary);
+      font-size: 1.1rem;
+      transition: color 0.2s, transform 0.15s;
+    }
+    .work-card:hover .work-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* --- Footer --- */
+    .footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 768px) {
+      .hero-title { font-size: clamp(3rem, 18vw, 6rem); }
+      .content { padding: 0 24px 48px; }
+      .main-row { grid-template-columns: 1fr; }
+      .works-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 主题切换 -->
+  <button class="hero-toggle" onclick="toggleTheme()" aria-label="切换主题">
+    <span class="icon-sun">☀</span>
+    <span class="icon-moon">☽</span>
+  </button>
+
+  <!-- 第一屏：大字 Hero -->
+  <section class="hero">
+    <h1 class="hero-title">三言二鱼</h1>
+    <p class="hero-tagline">独立开发，产品与文字</p>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- 内容区：左作品 + 右卡片 -->
+  <div class="content">
+    <div class="main-row">
+
+      <!-- 左侧：作品 -->
+      <div class="works-col">
+        <h2 class="section-label">作品集</h2>
+        <div class="works-grid">
+          <a class="work-card" href="https://blog.rockdork.cn/" target="_blank">
+            <div class="work-card-header">
+              <span class="work-icon">📝</span>
+              <span class="work-badge">Blog</span>
+            </div>
+            <h3 class="work-name">三言二鱼 · 博客</h3>
+            <p class="work-desc">技术、产品与独立开发的思考记录</p>
+            <span class="work-arrow">→</span>
+          </a>
+          <a class="work-card" href="https://blog.rockdork.cn/tutu/" target="_blank">
+            <div class="work-card-header">
+              <span class="work-icon">🖼</span>
+              <span class="work-badge">v0.1.0</span>
+            </div>
+            <h3 class="work-name">三言图图</h3>
+            <p class="work-desc">智能图片管理，多存储源支持</p>
+            <span class="work-arrow">→</span>
+          </a>
+          <a class="work-card" href="https://blog.rockdork.cn/snote/" target="_blank">
+            <div class="work-card-header">
+              <span class="work-icon">📓</span>
+              <span class="work-badge">v0.1.0</span>
+            </div>
+            <h3 class="work-name">SNote</h3>
+            <p class="work-desc">本地 Markdown 笔记管理工具</p>
+            <span class="work-arrow">→</span>
+          </a>
+          <a class="work-card" href="https://github.com/rockdork" target="_blank">
+            <div class="work-card-header">
+              <span class="work-icon">🐙</span>
+              <span class="work-badge">GitHub</span>
+            </div>
+            <h3 class="work-name">开源项目</h3>
+            <p class="work-desc">在 GitHub 上查看所有开源工作</p>
+            <span class="work-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 右侧：介绍 + 公众号 -->
+      <div class="sidebar-col">
+        <div class="about-card">
+          <img class="avatar" src="https://img.rockdork.cn/2026/05/07/movm95uwe3la5z.jpg" alt="头像" />
+          <p class="about-name">三言二鱼</p>
+          <p>新晋奶爸、萌新写手</p>
+          <p>喜欢跑步、使劲儿折腾、尝试做各种尝试、写奇怪的文字……</p>
+        </div>
+        <div class="wechat-card">
+          <h3>三言二鱼 · 公众号</h3>
+          <p>不断成长，持续奔跑，做一块有温度的石头～</p>
+          <img class="qr-img" src="https://img.rockdork.cn/2026/05/07/mov32qxgz5vp5n.jpg" alt="三言二鱼公众号二维码" />
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>© 2026 三言二鱼</p>
+    </footer>
+  </div>
+
+  <script>
+    function getTheme() {
+      return localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.querySelector('.icon-sun').style.display = t === 'dark' ? 'none' : 'inline';
+      document.querySelector('.icon-moon').style.display = t === 'dark' ? 'inline' : 'none';
+    }
+    function toggleTheme() {
+      const next = getTheme() === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    }
+    applyTheme(getTheme());
+  </script>
+</body>
+</html>

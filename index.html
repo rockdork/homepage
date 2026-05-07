@@ -53,26 +53,91 @@
     .hero {
       min-height: 75vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
       position: relative;
-      padding: 48px 32px;
+      padding: 48px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 50%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(196, 69, 54, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 0 48px;
+    }
+    .hero-label {
+      font-family: 'LXGW WenKai', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      animation: fade-in-up 0.6s ease-out;
     }
     .hero-title {
-      font-size: clamp(4rem, 15vw, 12rem);
-      font-weight: 800;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1.05;
       color: var(--text-primary);
+      margin-bottom: 24px;
+      animation: fade-in-up 0.6s ease-out 0.1s backwards;
     }
     .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-size: 1.15rem;
       color: var(--text-secondary);
-      margin-top: 16px;
       font-weight: 400;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
+      max-width: 380px;
+      margin-bottom: 28px;
+      animation: fade-in-up 0.6s ease-out 0.2s backwards;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      animation: fade-in-up 0.6s ease-out 0.3s backwards;
+    }
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: fade-in-up 0.6s ease-out 0.35s backwards;
+    }
+    .hero-avatar-large {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--border);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hero-avatar-large:hover {
+      transform: scale(1.03);
+      box-shadow: 0 28px 72px rgba(0,0,0,0.12);
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .hero-toggle {
       position: fixed;
@@ -281,6 +346,12 @@
 
     /* --- Mobile --- */
     @media (max-width: 768px) {
+      .hero { min-height: auto; padding: 80px 0 48px; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; text-align: center; }
+      .hero-tagline { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .hero-meta { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-avatar-large { width: 160px; height: 160px; }
       .hero-title { font-size: clamp(3rem, 18vw, 6rem); }
       .content { padding: 0 24px 48px; }
       .main-row { grid-template-columns: 1fr; }
@@ -296,10 +367,23 @@
     <span class="icon-moon">☽</span>
   </button>
 
-  <!-- 第一屏：大字 Hero -->
+  <!-- 第一屏：Hero -->
   <section class="hero">
-    <h1 class="hero-title">三言二鱼</h1>
-    <p class="hero-tagline">独立开发，产品与文字</p>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-label">INDEPENDENT DEVELOPER</div>
+        <h1 class="hero-title">三言二鱼</h1>
+        <p class="hero-tagline">独立开发，产品与文字。新晋奶爸，喜欢跑步、使劲儿折腾、写奇怪的文字。</p>
+        <div class="hero-meta">
+          <span>🏃 跑者</span>
+          <span>✍️ 写手</span>
+          <span>💻 开发</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-avatar-large" src="https://img.rockdork.cn/2026/05/07/movm95uwe3la5z.jpg" alt="三言二鱼" />
+      </div>
+    </div>
     <div class="scroll-hint">↓</div>
   </section>
 
@@ -353,7 +437,6 @@
       <!-- 右侧：介绍 + 公众号 -->
       <div class="sidebar-col">
         <div class="about-card">
-          <img class="avatar" src="https://img.rockdork.cn/2026/05/07/movm95uwe3la5z.jpg" alt="头像" />
           <p class="about-name">三言二鱼</p>
           <p>新晋奶爸、萌新写手</p>
           <p>喜欢跑步、使劲儿折腾、尝试做各种尝试、写奇怪的文字……</p>

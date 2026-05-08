@@ -18,15 +18,6 @@
       --accent: #C44536;
       --border: #E4E4E7;
     }
-    [data-theme="dark"] {
-      --bg: #09090B;
-      --bg-card: #141416;
-      --text-primary: #FAFAFA;
-      --text-secondary: #A1A1AA;
-      --text-tertiary: #52525B;
-      --accent: #E05A4B;
-      --border: #27272A;
-    }
     body {
       font-family: 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
@@ -116,25 +107,6 @@
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .hero-toggle {
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: border-color 0.2s;
-    }
-    .hero-toggle:hover { border-color: var(--accent); }
-
     .scroll-hint {
       position: absolute;
       bottom: 32px;
@@ -336,12 +308,6 @@
 </head>
 <body>
 
-  <!-- 主题切换 -->
-  <button class="hero-toggle" onclick="toggleTheme()" aria-label="切换主题">
-    <span class="icon-sun">☀</span>
-    <span class="icon-moon">☽</span>
-  </button>
-
   <!-- 第一屏：Hero -->
   <section class="hero">
     <div class="hero-content">
@@ -428,22 +394,6 @@
     </footer>
   </div>
 
-  <script>
-    function getTheme() {
-      return localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    }
-    function applyTheme(t) {
-      document.documentElement.setAttribute('data-theme', t);
-      document.querySelector('.icon-sun').style.display = t === 'dark' ? 'none' : 'inline';
-      document.querySelector('.icon-moon').style.display = t === 'dark' ? 'inline' : 'none';
-    }
-    function toggleTheme() {
-      const next = getTheme() === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('theme', next);
-      applyTheme(next);
-    }
-    applyTheme(getTheme());
-  </script>
+
 </body>
 </html>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>三言二鱼</title>
-  <meta name="description" content="三言二鱼（石先生）的个人主页。独立开发、产品与文字。">
+  <title>三言二鱼 · 个人主页</title>
+  <meta name="description" content="三言二鱼（石先生）的个人主页。独立开发、产品与文字。lumi 拾光日记、lumi 三言笔记、三言图图。">
   <link rel="icon" href="https://blog.rockdork.cn/favicon.ico">
   <style>
-    /* ===== 基础与变量：纯粹、温润、极简 ===== */
+    /* ===== 基础复位与设计系统（温润纸白 · 现代切角矩圆） ===== */
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -21,19 +21,23 @@
       --text-muted: #5e6473;
       --text-sub: #949aab;
       --border: rgba(0, 0, 0, 0.06);
-      --border-hover: rgba(0, 0, 0, 0.12);
-      --shadow-soft: 0 8px 24px -6px rgba(0, 0, 0, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.03);
-      --shadow-hover: 0 14px 32px -8px rgba(0, 0, 0, 0.08), 0 4px 12px -3px rgba(0, 0, 0, 0.04);
+      --border-hover: rgba(0, 0, 0, 0.14);
+      --shadow-sm: 0 2px 6px -2px rgba(0, 0, 0, 0.03);
+      --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 16px 36px -10px rgba(0, 0, 0, 0.08), 0 4px 12px -3px rgba(0, 0, 0, 0.03);
+      --shadow-icon: 0 10px 24px -6px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
       --radius-squircle: 22.37%;
-      --radius-card: 18px;
+      --radius-card: 20px;
+      --radius-btn: 10px;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     ::selection {
@@ -46,21 +50,21 @@
       text-decoration: none;
     }
 
-    /* ===== 顶栏 ===== */
+    /* ===== 顶部导航栏（吸顶微磨砂） ===== */
     .header {
       position: sticky;
       top: 0;
       z-index: 50;
       background: rgba(247, 247, 248, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .header-inner {
-      max-width: 980px;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 18px 24px;
+      padding: 16px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -70,9 +74,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
     }
 
     .brand-dot {
@@ -85,9 +89,10 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
-      font-size: 0.88rem;
+      gap: 20px;
+      font-size: 0.9rem;
       color: var(--text-muted);
+      font-weight: 500;
     }
 
     .nav-links a:hover {
@@ -96,49 +101,119 @@
 
     /* ===== 页面主容器 ===== */
     .container {
-      max-width: 980px;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 44px 24px 88px;
     }
 
-    /* ===== 个人简介（安静克制） ===== */
-    .hero {
-      padding: 32px 0 56px;
+    /* ===== 01. 顶部：个人介绍 Hero ===== */
+    .hero-profile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px 40px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
     }
 
-    .hero-title {
-      font-size: clamp(2rem, 4vw, 2.75rem);
+    .profile-main {
+      flex: 1;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .profile-name {
+      font-size: clamp(1.8rem, 3.5vw, 2.3rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text-main);
-      margin-bottom: 12px;
+      line-height: 1.2;
     }
 
-    .hero-bio {
-      font-size: 1.08rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 620px;
-    }
-
-    /* ===== 分类块 ===== */
-    .section {
-      margin-bottom: 56px;
-    }
-
-    .section-title {
-      font-size: 0.85rem;
-      font-weight: 600;
+    .profile-alias {
+      font-size: 1rem;
       color: var(--text-sub);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 18px;
+      font-weight: 500;
     }
 
-    /* ===== 应用卡片（重点突出、主视觉） ===== */
+    .profile-bio {
+      font-size: 1.04rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 660px;
+    }
+
+    .profile-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-badge {
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #f7f7f8;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .profile-avatar-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .profile-avatar {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.12);
+      border: 3px solid #ffffff;
+      display: block;
+    }
+
+    /* ===== 分块公用标题 ===== */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .section-head-sub {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+    }
+
+    /* ===== 02. 应用与工具板块（Apps & Tools） ===== */
+    .section-apps {
+      margin-bottom: 64px;
+    }
+
     .apps-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
@@ -146,273 +221,352 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-card);
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.25s ease;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .app-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
       border-color: var(--border-hover);
     }
 
-    .app-card-top {
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      margin-bottom: 16px;
+    .app-top {
+      margin-bottom: 22px;
     }
 
-    .app-icon {
-      width: 68px;
-      height: 68px;
-      flex-shrink: 0;
+    .app-icon-wrap {
+      width: 72px;
+      height: 72px;
       border-radius: var(--radius-squircle);
-      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-icon);
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 18px;
+      background: #ffffff;
     }
 
-    .app-icon svg {
+    .app-icon-wrap svg {
       width: 100%;
       height: 100%;
       display: block;
     }
 
-    .app-meta {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .app-title-row {
+    .app-title-line {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    .app-name {
-      font-size: 1.25rem;
+    .app-title {
+      font-size: 1.22rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
       color: var(--text-main);
+      letter-spacing: -0.02em;
     }
 
-    .app-tag {
-      font-size: 0.7rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      padding: 1px 6px;
-      border-radius: 4px;
+    .app-version-badge {
+      font-size: 0.72rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #181a20;
+      color: #ffffff;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .app-tagline {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .app-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.62;
+    }
+
+    /* 显性、醒目的下载/使用入口 */
+    .app-action-area {
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .btn-action-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #181a20;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: var(--radius-btn);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-primary:hover {
+      background: #2b2e38;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: var(--radius-btn);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-secondary:hover {
+      background: #f7f7f8;
+      border-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .app-sub-link {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    .app-sub-link:hover {
+      color: var(--text-main);
+      text-decoration: underline;
+    }
+
+    /* ===== 03. 文字与内容创作（Writing & Creation） ===== */
+    .section-creation {
+      margin-bottom: 64px;
+    }
+
+    .creation-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+    }
+
+    .creation-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 30px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.28s ease;
+    }
+
+    .creation-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-hover);
+    }
+
+    .creation-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .creation-badge-pill {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 6px;
       background: rgba(0, 0, 0, 0.05);
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    .app-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-    }
-
-    .app-desc {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .app-links {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.82rem;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-
-    .app-link-primary {
-      color: var(--text-main);
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: gap 0.2s;
-    }
-
-    .app-link-primary:hover {
-      gap: 7px;
-    }
-
-    .app-link-muted {
-      color: var(--text-sub);
-    }
-
-    .app-link-muted:hover {
-      color: var(--text-main);
-    }
-
-    /* ===== 其他项目（博客、图床、开源） ===== */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .tool-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-card);
-      padding: 20px;
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s ease;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--border-hover);
-    }
-
-    .tool-top {
-      margin-bottom: 12px;
-    }
-
-    .tool-title {
-      font-size: 1.05rem;
+    .creation-title {
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 4px;
+      letter-spacing: -0.02em;
     }
 
-    .tool-desc {
-      font-size: 0.85rem;
+    .creation-desc {
+      font-size: 0.94rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.7;
+      margin-bottom: 22px;
     }
 
-    .tool-arrow {
-      font-size: 0.8rem;
-      color: var(--text-sub);
+    .btn-blog-read {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      background: #181a20;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius-btn);
+      width: fit-content;
+      transition: all 0.2s ease;
     }
 
-    .tool-card:hover .tool-arrow {
+    .btn-blog-read:hover {
+      background: #2b2e38;
+      transform: translateY(-1px);
+    }
+
+    /* 公众号扫码卡片 */
+    .wechat-box {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .wechat-qr {
+      width: 102px;
+      height: 102px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 5px;
+      background: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .wechat-info h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--text-main);
+      margin-bottom: 6px;
     }
 
-    /* ===== 关于与公众号 ===== */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 20px;
+    .wechat-info p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== 04. 开源与代码（Open Source） ===== */
+    .section-opensource {
       margin-bottom: 64px;
     }
 
-    .info-card {
+    .opensource-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-card);
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .about-head {
+      padding: 24px 30px;
+      box-shadow: var(--shadow-sm);
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .about-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    }
-
-    .about-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .about-sub {
-      font-size: 0.82rem;
-      color: var(--text-sub);
-    }
-
-    .about-text {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .qr-wrap {
-      display: flex;
-      align-items: center;
+      justify-content: space-between;
       gap: 20px;
+      transition: all 0.2s ease;
     }
 
-    .qr-image {
-      width: 92px;
-      height: 92px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      padding: 4px;
-      background: #ffffff;
-      flex-shrink: 0;
+    .opensource-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card);
     }
 
-    .qr-info h4 {
-      font-size: 1rem;
+    .opensource-info h3 {
+      font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 4px;
       color: var(--text-main);
+      margin-bottom: 4px;
     }
 
-    .qr-info p {
-      font-size: 0.85rem;
+    .opensource-info p {
+      font-size: 0.88rem;
       color: var(--text-muted);
-      line-height: 1.55;
+    }
+
+    .btn-github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f7f7f8;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius-btn);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .btn-github-link:hover {
+      background: #ffffff;
+      border-color: rgba(0, 0, 0, 0.15);
     }
 
     /* ===== 页脚 ===== */
     .footer {
       border-top: 1px solid var(--border);
-      padding-top: 28px;
+      padding-top: 32px;
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--text-sub);
     }
 
-    /* ===== 响应式 ===== */
-    @media (max-width: 768px) {
-      .apps-grid, .tools-grid, .info-grid {
+    /* ===== 响应式适配 ===== */
+    @media (max-width: 960px) {
+      .apps-grid {
         grid-template-columns: 1fr;
       }
-      .container {
-        padding: 32px 16px 64px;
+      .creation-grid {
+        grid-template-columns: 1fr;
       }
-      .hero {
-        padding: 16px 0 36px;
+    }
+
+    @media (max-width: 720px) {
+      .hero-profile {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        padding: 28px 24px;
+        gap: 20px;
+      }
+      .profile-avatar {
+        width: 80px;
+        height: 80px;
+      }
+      .container {
+        padding: 24px 16px 64px;
+      }
+      .wechat-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .opensource-card {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 顶栏导航 -->
+  <!-- 顶部导航 -->
   <header class="header">
     <div class="header-inner">
       <div class="brand">
@@ -420,8 +574,8 @@
         <a href="/">三言二鱼</a>
       </div>
       <nav class="nav-links">
-        <a href="https://blog.rockdork.cn/">博客</a>
-        <a href="https://tutu.rockdork.cn/">图床</a>
+        <a href="#apps">应用工具</a>
+        <a href="#creation">内容创作</a>
         <a href="https://github.com/rockdork" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -429,177 +583,257 @@
 
   <main class="container">
 
-    <!-- 个人简介：平实自然，两句话 -->
-    <section class="hero">
-      <h1 class="hero-title">三言二鱼</h1>
-      <p class="hero-bio">
-        石先生的个人主页。独立开发，也写字、跑步。<br>
-        专注于轻巧、克制、本地优先（Local-First）的个人工具。
-      </p>
+    <!-- 01. 顶部：个人介绍 Hero（放在最上面） -->
+    <section class="hero-profile">
+      <div class="profile-main">
+        <div class="profile-header">
+          <h1 class="profile-name">三言二鱼</h1>
+          <span class="profile-alias">石先生 · Stone</span>
+        </div>
+        <p class="profile-bio">
+          新晋奶爸，喜欢跑步、使劲折腾，也写奇怪的文字。独立开发者。<br>
+          致力于构筑轻巧、克制、本地优先（Local-First）的个人工具，把数据主权与专注呼吸交还给使用者。
+        </p>
+        <div class="profile-tags">
+          <span class="tag-badge">🏃 跑者</span>
+          <span class="tag-badge">✍️ 写作</span>
+          <span class="tag-badge">💻 独立开发</span>
+          <span class="tag-badge">🌱 本地优先（Local-First）</span>
+          <span class="tag-badge">📍 深圳</span>
+        </div>
+      </div>
+      <div class="profile-avatar-wrap">
+        <img class="profile-avatar" src="https://img.rockdork.cn/2026/05/07/movm95uwe3la5z.jpg" alt="三言二鱼头像" />
+      </div>
     </section>
 
-    <!-- 分类一：自研应用 -->
-    <section class="section">
-      <h2 class="section-title">应用 · Apps</h2>
+    <!-- 02. 应用与工具板块（Apps & Tools） -->
+    <section class="section-apps" id="apps">
+      <div class="section-head">
+        <h2 class="section-head-title">自研应用与工具</h2>
+        <span class="section-head-sub">本地优先 · 简约留白 · 独立打造</span>
+      </div>
+
       <div class="apps-grid">
 
-        <!-- 拾光日记 -->
-        <div class="app-card">
-          <div>
-            <div class="app-card-top">
-              <div class="app-icon">
-                <!-- 真实矢量图标：晨昏晓月 -->
-                <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="d1-bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#FCFCFC"/>
-                      <stop offset="1" stop-color="#F2F2F0"/>
-                    </linearGradient>
-                    <linearGradient id="d1-moon" x1="292" y1="292" x2="732" y2="732" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#2D3139"/>
-                      <stop offset="1" stop-color="#181A20"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="1024" height="1024" rx="224" fill="url(#d1-bg)"/>
-                  <rect width="1024" height="1024" rx="224" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="4"/>
-                  <circle cx="512" cy="512" r="280" fill="none" stroke="#1F2937" stroke-width="14" stroke-opacity="0.12" stroke-dasharray="8 12"/>
-                  <path d="M512 292C390.5 292 292 390.5 292 512C292 633.5 390.5 732 512 732C500 660 520 580 570 520C620 460 700 440 732 440C700 350 615 292 512 292Z" fill="url(#d1-moon)"/>
-                  <circle cx="670" cy="370" r="24" fill="#EAB308"/>
-                </svg>
-              </div>
-              <div class="app-meta">
-                <div class="app-title-row">
-                  <h3 class="app-name">lumi 拾光日记</h3>
-                  <span class="app-tag">v0.2.4</span>
-                </div>
-                <p class="app-subtitle">晨昏晓月 · 本地优先日记与打点</p>
-              </div>
+        <!-- 应用 1: lumi 拾光日记 -->
+        <article class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrap" title="lumi 拾光日记 · 晨昏晓月">
+              <!-- 晨昏晓月 SVG -->
+              <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="d1-bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFCFC"/>
+                    <stop offset="1" stop-color="#F2F2F0"/>
+                  </linearGradient>
+                  <linearGradient id="d1-moon" x1="292" y1="292" x2="732" y2="732" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2D3139"/>
+                    <stop offset="1" stop-color="#181A20"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1024" height="1024" rx="224" fill="url(#d1-bg)"/>
+                <rect width="1024" height="1024" rx="224" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="4"/>
+                <circle cx="512" cy="512" r="280" fill="none" stroke="#1F2937" stroke-width="14" stroke-opacity="0.12" stroke-dasharray="8 12"/>
+                <path d="M512 292C390.5 292 292 390.5 292 512C292 633.5 390.5 732 512 732C500 660 520 580 570 520C620 460 700 440 732 440C700 350 615 292 512 292Z" fill="url(#d1-moon)"/>
+                <circle cx="670" cy="370" r="24" fill="#EAB308"/>
+              </svg>
             </div>
+            <div class="app-title-line">
+              <h3 class="app-title">lumi 拾光日记</h3>
+              <span class="app-version-badge">v0.2.4</span>
+            </div>
+            <p class="app-tagline">晨昏晓月 · 本地优先画卷流日记</p>
             <p class="app-desc">
-              画卷流个人日记与生活打点工具。无缝记录日常琐碎与习惯沉淀，支持端对端加密双端同步，数据完全属于自己。
+              个人生活打点与画卷流日记工具。无缝记录日常琐碎、习惯打卡与深度沉淀。本地 SQLite 存储，端到端加密双向同步。
             </p>
           </div>
-          <div class="app-links">
-            <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases" class="app-link-primary" target="_blank" rel="noopener">
-              版本下载 <span>→</span>
-            </a>
-            <span class="app-link-muted">macOS / Android</span>
-          </div>
-        </div>
 
-        <!-- 三言笔记 -->
-        <div class="app-card">
-          <div>
-            <div class="app-card-top">
-              <div class="app-icon">
-                <!-- 真实矢量图标：破土灵芽 -->
-                <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="o-bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#FCFCFC"/>
-                      <stop offset="1" stop-color="#F2F2F0"/>
-                    </linearGradient>
-                    <linearGradient id="o-leaf" x1="512" y1="210" x2="654" y2="700" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#2D3139"/>
-                      <stop offset="1" stop-color="#181A20"/>
-                    </linearGradient>
-                  </defs>
-                  <rect width="1024" height="1024" rx="224" fill="url(#o-bg)"/>
-                  <rect width="1024" height="1024" rx="224" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="4"/>
-                  <circle cx="512" cy="512" r="280" fill="none" stroke="#1F2937" stroke-width="14" stroke-opacity="0.12" stroke-dasharray="8 12"/>
-                  <path d="M440 680C420 510 500 370 660 300C670 420 630 570 480 670C460 680 440 680 440 680Z" fill="url(#o-leaf)"/>
-                  <path d="M440 680C360 560 390 440 480 410C450 510 460 600 440 680Z" fill="#1E293B" fill-opacity="0.14"/>
-                  <circle cx="680" cy="280" r="24" fill="#EAB308"/>
-                </svg>
-              </div>
-              <div class="app-meta">
-                <div class="app-title-row">
-                  <h3 class="app-name">lumi 三言笔记</h3>
-                  <span class="app-tag">v0.1.2</span>
-                </div>
-                <p class="app-subtitle">破土灵芽 · 极简卡片笔记</p>
-              </div>
+          <div class="app-action-area">
+            <div class="btn-group">
+              <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4-aarch64.dmg" class="btn-action-primary" target="_blank" rel="noopener">
+                macOS 下载 (DMG)
+              </a>
+              <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4.apk" class="btn-action-secondary" target="_blank" rel="noopener">
+                Android APK
+              </a>
             </div>
+            <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases" class="app-sub-link" target="_blank" rel="noopener">
+              查看发布历史与详情 →
+            </a>
+          </div>
+        </article>
+
+        <!-- 应用 2: lumi 三言笔记 -->
+        <article class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrap" title="lumi 三言笔记 · 破土灵芽">
+              <!-- 破土灵芽 SVG -->
+              <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="o-bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFCFC"/>
+                    <stop offset="1" stop-color="#F2F2F0"/>
+                  </linearGradient>
+                  <linearGradient id="o-leaf" x1="512" y1="210" x2="654" y2="700" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2D3139"/>
+                    <stop offset="1" stop-color="#181A20"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1024" height="1024" rx="224" fill="url(#o-bg)"/>
+                <rect width="1024" height="1024" rx="224" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="4"/>
+                <circle cx="512" cy="512" r="280" fill="none" stroke="#1F2937" stroke-width="14" stroke-opacity="0.12" stroke-dasharray="8 12"/>
+                <path d="M440 680C420 510 500 370 660 300C670 420 630 570 480 670C460 680 440 680 440 680Z" fill="url(#o-leaf)"/>
+                <path d="M440 680C360 560 390 440 480 410C450 510 460 600 440 680Z" fill="#1E293B" fill-opacity="0.14"/>
+                <circle cx="680" cy="280" r="24" fill="#EAB308"/>
+              </svg>
+            </div>
+            <div class="app-title-line">
+              <h3 class="app-title">lumi 三言笔记</h3>
+              <span class="app-version-badge">v0.1.2</span>
+            </div>
+            <p class="app-tagline">破土灵芽 · 极简留白卡片笔记</p>
             <p class="app-desc">
-              纯粹克制的卡片随想与碎片记录。即开即记、双向链接、留白专注，让思考如新叶般自然生长。
+              纯粹克制的碎片笔记工具。瞬时捕获、双向链接、专注留白。没有臃肿繁冗的格式层级，还原纯文字思考最初的触感。
             </p>
           </div>
-          <div class="app-links">
-            <a href="https://gitee.com/rockdorky/lumi-note-releases/releases" class="app-link-primary" target="_blank" rel="noopener">
-              版本下载 <span>→</span>
+
+          <div class="app-action-area">
+            <div class="btn-group">
+              <a href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2-aarch64.dmg" class="btn-action-primary" target="_blank" rel="noopener">
+                macOS 下载 (DMG)
+              </a>
+              <a href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2.apk" class="btn-action-secondary" target="_blank" rel="noopener">
+                Android APK
+              </a>
+            </div>
+            <a href="https://gitee.com/rockdorky/lumi-note-releases/releases" class="app-sub-link" target="_blank" rel="noopener">
+              查看发布历史与详情 →
             </a>
-            <span class="app-link-muted">macOS / Android</span>
           </div>
-        </div>
+        </article>
+
+        <!-- 应用 3: 三言图图 (Web 应用工具) -->
+        <article class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrap" title="三言图图 · 云图床工具">
+              <!-- 家族式同构 SVG: 澄光画镜 -->
+              <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="t-bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FCFCFC"/>
+                    <stop offset="1" stop-color="#F2F2F0"/>
+                  </linearGradient>
+                  <linearGradient id="t-lens" x1="320" y1="320" x2="704" y2="704" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2D3139"/>
+                    <stop offset="1" stop-color="#181A20"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1024" height="1024" rx="224" fill="url(#t-bg)"/>
+                <rect width="1024" height="1024" rx="224" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="4"/>
+                <circle cx="512" cy="512" r="280" fill="none" stroke="#1F2937" stroke-width="14" stroke-opacity="0.12" stroke-dasharray="8 12"/>
+                <path d="M340 680C340 680 430 460 520 460C610 460 700 680 700 680H340Z" fill="url(#t-lens)"/>
+                <path d="M470 680C470 680 540 540 610 540C680 540 730 680 730 680H470Z" fill="#1E293B" fill-opacity="0.14"/>
+                <circle cx="640" cy="380" r="24" fill="#EAB308"/>
+              </svg>
+            </div>
+            <div class="app-title-line">
+              <h3 class="app-title">三言图图</h3>
+              <span class="app-version-badge">v0.2.10</span>
+            </div>
+            <p class="app-tagline">澄光画镜 · 轻量云图床上传工具</p>
+            <p class="app-desc">
+              专为创作者打造的轻量图床 Web 应用。支持七牛云、腾讯云 COS、GitHub 等多对象存储，秒级拖拽上传并一键生成链接。
+            </p>
+          </div>
+
+          <div class="app-action-area">
+            <div class="btn-group">
+              <a href="https://tutu.rockdork.cn/" class="btn-action-primary" target="_blank" rel="noopener">
+                在线使用 (Web) →
+              </a>
+              <a href="https://tutu.rockdork.cn/about" class="btn-action-secondary" target="_blank" rel="noopener">
+                关于图床
+              </a>
+            </div>
+            <a href="https://tutu.rockdork.cn/" class="app-sub-link" target="_blank" rel="noopener">
+              tutu.rockdork.cn →
+            </a>
+          </div>
+        </article>
 
       </div>
     </section>
 
-    <!-- 分类二：文字与小工具 -->
-    <section class="section">
-      <h2 class="section-title">文字与工具 · Writing & Tools</h2>
-      <div class="tools-grid">
+    <!-- 03. 文字与内容创作（Writing & Creation，博客与公众号并列） -->
+    <section class="section-creation" id="creation">
+      <div class="section-head">
+        <h2 class="section-head-title">文字与创作</h2>
+        <span class="section-head-sub">长篇随笔 · 跑步生活 · 碎片思考</span>
+      </div>
 
-        <a href="https://blog.rockdork.cn/" class="tool-card" target="_blank" rel="noopener">
-          <div class="tool-top">
-            <h3 class="tool-title">博客</h3>
-            <p class="tool-desc">长篇文字、技术积累与马拉松跑步心得。</p>
-          </div>
-          <div class="tool-arrow">blog.rockdork.cn →</div>
-        </a>
+      <div class="creation-grid">
 
-        <a href="https://tutu.rockdork.cn/" class="tool-card" target="_blank" rel="noopener">
-          <div class="tool-top">
-            <h3 class="tool-title">三言图图</h3>
-            <p class="tool-desc">轻量云图床，多存储支持与快速拖拽分发。</p>
+        <!-- 创作板块 1: 个人博客 -->
+        <article class="creation-card">
+          <div>
+            <div class="creation-header">
+              <span class="creation-badge-pill">长篇思考与技术</span>
+              <h3 class="creation-title">三言二鱼 · 博客</h3>
+            </div>
+            <p class="creation-desc">
+              blog.rockdork.cn。记录技术实践、个人开发折腾、马拉松跑步心得与长篇感悟的独立自留地。已全面升级温润纸白与无衬线极简排版。
+            </p>
           </div>
-          <div class="tool-arrow">tutu.rockdork.cn →</div>
-        </a>
+          <div>
+            <a href="https://blog.rockdork.cn/" class="btn-blog-read" target="_blank" rel="noopener">
+              进入阅读博客 <span>→</span>
+            </a>
+          </div>
+        </article>
 
-        <a href="https://github.com/rockdork" class="tool-card" target="_blank" rel="noopener">
-          <div class="tool-top">
-            <h3 class="tool-title">开源代码</h3>
-            <p class="tool-desc">个人开源项目与日常折腾的脚本集合。</p>
+        <!-- 创作板块 2: 微信公众号 -->
+        <article class="creation-card">
+          <div>
+            <div class="creation-header">
+              <span class="creation-badge-pill">移动端专栏</span>
+              <h3 class="creation-title">三言二鱼 · 公众号</h3>
+            </div>
+            <p class="creation-desc">
+              三言两语，鱼游深水。每周持续记录个人成长、跑步心得与产品思考。做一块有温度的石头～
+            </p>
           </div>
-          <div class="tool-arrow">github.com/rockdork →</div>
-        </a>
+          <div class="wechat-box">
+            <img class="wechat-qr" src="https://img.rockdork.cn/2026/05/07/mov32qxgz5vp5n.jpg" alt="微信公众号二维码" />
+            <div class="wechat-info">
+              <h4>微信扫码关注</h4>
+              <p>微信搜一搜「三言二鱼」<br>关注作者最新动态与文字。</p>
+            </div>
+          </div>
+        </article>
 
       </div>
     </section>
 
-    <!-- 分类三：关于与关注 -->
-    <section class="info-grid">
-
-      <!-- 关于我 -->
-      <div class="info-card">
-        <div class="about-head">
-          <img class="about-avatar" src="https://img.rockdork.cn/2026/05/07/movm95uwe3la5z.jpg" alt="头像" />
-          <div>
-            <h3 class="about-name">三言二鱼</h3>
-            <p class="about-sub">石先生 · 奶爸 / 跑者 / 独立开发</p>
-          </div>
+    <!-- 04. 开源与代码（Open Source） -->
+    <section class="section-opensource">
+      <div class="opensource-card">
+        <div class="opensource-info">
+          <h3>开源与代码探索</h3>
+          <p>所有开源项目、折腾脚本与构建源码均透明归档在 GitHub，欢迎交流与 Star。</p>
         </div>
-        <p class="about-text">
-          喜欢跑步，使劲折腾，也写奇怪的文字。相信好的数字工具应当像纸张一样温润长久，不绑架用户注意力。
-        </p>
+        <a href="https://github.com/rockdork" class="btn-github-link" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          github.com/rockdork →
+        </a>
       </div>
-
-      <!-- 公众号 -->
-      <div class="info-card">
-        <div class="qr-wrap">
-          <img class="qr-image" src="https://img.rockdork.cn/2026/05/07/mov32qxgz5vp5n.jpg" alt="公众号二维码" />
-          <div class="qr-info">
-            <h4>公众号：三言二鱼</h4>
-            <p>记录个人成长、跑步心得与产品思考。微信扫码关注，做一块有温度的石头～</p>
-          </div>
-        </div>
-      </div>
-
     </section>
 
     <!-- 页脚 -->
     <footer class="footer">
-      <p>© 2026 三言二鱼 · rockdork.cn</p>
+      <p>© 2026 三言二鱼 (rockdork.cn) · 本地优先 · 简约留白</p>
     </footer>
 
   </main>

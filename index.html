@@ -349,7 +349,7 @@
     }
 
     /* =========================================================
-       06. 自研应用：壹通栏，贰叁并排错落（沉降 36px、底边齐平）
+       06. 自研应用：壹通栏，贰叁并排等高（内容拉伸、按钮沉底）
        ========================================================= */
     .app {
       background: var(--card);
@@ -357,6 +357,8 @@
       border-radius: 10px;
       padding: 30px 32px;
       transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
     }
     .app:hover {
       border-color: #d2ccbd;
@@ -368,9 +370,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
-      align-items: start;
+      align-items: stretch;
     }
-    .app-drop { margin-top: 36px; }
     .app-head {
       display: flex;
       align-items: baseline;
@@ -412,7 +413,7 @@
       max-width: 34em;
       margin-bottom: 22px;
     }
-    .app-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+    .app-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: auto; }
 
     /* =========================================================
        07. 设计理念：印泥红满幅横带
@@ -601,7 +602,6 @@
       .section-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 30px; }
       .app { padding: 24px 20px; }
       .app-row { grid-template-columns: 1fr; gap: 16px; }
-      .app-drop { margin-top: 16px; }
       .app-platform { margin-left: 0; width: 100%; }
       .principles { grid-template-columns: 1fr; gap: 26px; }
       .post { grid-template-columns: 1fr; gap: 4px; }
@@ -716,7 +716,7 @@
           </div>
         </article>
 
-        <article class="app app-drop">
+        <article class="app">
           <div class="app-head">
             <span class="app-num">叁</span>
             <h3 data-i18n="app3.name">三言图图</h3>

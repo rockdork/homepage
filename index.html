@@ -8,1350 +8,1058 @@
   <link rel="icon" href="https://blog.rockdork.cn/favicon.ico">
   <style>
     /* =========================================================
-       00. 基础复位与设计系统（温润素宣 · 墨韵参差 · 东方工坊）
+       00. 设计系统（素白朱带：纯白底 × 墨字 × 印泥红点睛）
        ========================================================= */
+    :root {
+      --bg: #ffffff;
+      --card: #fbfbfa;
+      --ink: #17181a;
+      --ink-2: #55575c;
+      --ink-3: #9b9ea6;
+      --line: #e6e6e9;
+      --hair: #f0f0f2;
+      /* 理念横带：印泥红 */
+      --band: #a93a30;
+      --band-fg: #fdf3ec;
+      --band-dim: rgba(253, 243, 236, 0.7);
+      --band-line: rgba(253, 243, 236, 0.26);
+      --band-num: #ffddc9;
+      --red: #b3352c;
+      --live: #2f9e44;
+      --ghost: rgba(23, 24, 26, 0.04);
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --serif: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Monaco, monospace;
+    }
+
     *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    :root {
-      /* 纸色与墨韵 */
-      --bg: #f8f7f4;                 /* 天然温润素宣纸底 */
-      --bg-surface: #ffffff;         /* 纯净纸面白 */
-      --bg-paper: #fbf9f5;           /* 微温泛黄信笺纸色 */
-      --bg-subtle: #f1f0ec;          /* 淡素灰 */
-      --bg-dark-card: #17191e;       /* 歙砚墨黑 */
-      --text-title: #131519;         /* 浓重松烟墨 */
-      --text-body: #3c414e;          /* 焦墨内文 */
-      --text-muted: #6e7587;         /* 淡墨注解 */
-      --text-sub: #9aa2b4;           /* 烟灰轻字 */
-      --border: rgba(0, 0, 0, 0.07);
-      --border-light: rgba(0, 0, 0, 0.04);
-      --border-focus: rgba(0, 0, 0, 0.16);
-      
-      /* 层次微阴影 */
-      --shadow-sm: 0 1px 3px rgba(20, 24, 33, 0.02), 0 4px 12px rgba(20, 24, 33, 0.02);
-      --shadow-card: 0 10px 28px -6px rgba(20, 24, 33, 0.04), 0 2px 8px -2px rgba(20, 24, 33, 0.02);
-      --shadow-float: 0 22px 52px -12px rgba(20, 24, 33, 0.09), 0 6px 18px -2px rgba(20, 24, 33, 0.03);
-      --shadow-paper: 0 8px 24px -4px rgba(180, 160, 140, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
-
-      /* 圆角与比例 */
-      --radius-sm: 7px;
-      --radius-md: 13px;
-      --radius-lg: 22px;
-      --radius-pill: 999px;
-
-      /* 传统点睛色 */
-      --accent-gold: #c27803;        /* 晨曦缃黄 */
-      --accent-green: #15803d;       /* 破土灵芽绿 */
-      --accent-blue: #0369a1;        /* 澄光黛蓝 */
-      --accent-vermilion: #b91c1c;   /* 朱砂印章红 */
-
-      /* 典雅字体排印体系 */
-      --font-serif: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "Hiragino Mincho ProN", "New York", "Baskerville", "Georgia", serif;
-      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      --font-mono: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Code", monospace;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font-sans);
-      background-color: var(--bg);
-      color: var(--text-body);
-      line-height: 1.76;
-      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
-      text-rendering: optimizeLegibility;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.75;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      position: relative;
-      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
     }
 
-    ::selection {
-      background: var(--text-title);
-      color: #ffffff;
-    }
+    ::selection { background: var(--red); color: #ffffff; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    /* =========================================================
-       01. 背景漫反射温润微光
-       ========================================================= */
-    .studio-ambient-light {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .light-glow-1 {
-      position: absolute;
-      top: -180px;
-      left: 6%;
-      width: 720px;
-      height: 580px;
-      background: radial-gradient(circle, rgba(194, 120, 3, 0.045) 0%, transparent 68%);
-      filter: blur(80px);
-      border-radius: 50%;
-    }
-
-    .light-glow-2 {
-      position: absolute;
-      top: 45%;
-      right: 2%;
-      width: 620px;
-      height: 560px;
-      background: radial-gradient(circle, rgba(21, 128, 61, 0.035) 0%, transparent 70%);
-      filter: blur(80px);
-      border-radius: 50%;
-    }
-
-    /* =========================================================
-       02. 顶部工作室导航栏
-       ========================================================= */
-    .studio-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(248, 247, 244, 0.88);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .header-inner {
-      max-width: 1120px;
+    .wrap {
+      max-width: 920px;
       margin: 0 auto;
-      padding: 18px 32px;
+      padding: 0 32px;
+    }
+
+    /* =========================================================
+       01. 读页小鱼：左侧细线轨道，随滚动游动（宽屏显示）
+       ========================================================= */
+    .fish-rail {
+      position: fixed;
+      left: calc((100% - 920px) / 2 - 76px);
+      top: 130px;
+      bottom: 130px;
+      width: 1px;
+      background: var(--line);
+      z-index: 5;
+    }
+    .fish {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink-3);
+      background: var(--bg);
+      box-shadow: 0 0 0 2px var(--bg);
+      border-radius: 2px;
+      padding: 7px 1px;
+      line-height: 1;
+      transition: top 0.12s linear;
+      user-select: none;
+    }
+
+    /* =========================================================
+       02. 顶部导航
+       ========================================================= */
+    .header { border-bottom: 1px solid var(--hair); }
+    .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 64px;
     }
-
-    .brand-mark {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--font-serif);
+    .brand {
+      font-family: var(--serif);
       font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      color: var(--text-title);
-      user-select: none;
-    }
-
-    .brand-logo-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--text-title);
-      border-radius: 50%;
-    }
-
-    .brand-tagline-sub {
-      font-family: var(--font-sans);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      padding-left: 10px;
-      border-left: 1px solid var(--border);
-      letter-spacing: 0.02em;
-    }
-
-    .studio-nav {
+      font-size: 17px;
+      letter-spacing: 0.14em;
       display: flex;
       align-items: center;
-      gap: 26px;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      font-weight: 500;
+      gap: 10px;
     }
-
-    .studio-nav a {
-      transition: color 0.2s ease;
-    }
-
-    .studio-nav a:hover {
-      color: var(--text-title);
-    }
-
-    .nav-btn-highlight {
-      color: var(--text-title) !important;
-      padding: 5px 13px;
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn-highlight:hover {
-      background: rgba(0, 0, 0, 0.08);
-      transform: translateY(-1px);
-    }
-
-    /* =========================================================
-       03. 主内容布局容器
-       ========================================================= */
-    .studio-container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 60px 32px 140px;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* =========================================================
-       04. 第一幕：品牌心智宣告（左侧文学流 ｜ 右侧微倾斜手账浮岛）
-       ========================================================= */
-    .hero-split-stage {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 48px;
-      align-items: center;
-      margin-bottom: 96px;
-      padding-top: 10px;
-    }
-
-    .hero-pill-bar {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .live-beacon-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(21, 128, 61, 0.08);
-      border: 1px solid rgba(21, 128, 61, 0.18);
-      color: var(--accent-green);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 4px 12px 4px 10px;
-      border-radius: var(--radius-pill);
-      cursor: pointer;
-      user-select: none;
-      transition: all 0.25s ease;
-    }
-
-    .live-beacon-pill:hover {
-      background: rgba(21, 128, 61, 0.13);
-      transform: translateY(-1px);
-    }
-
-    .beacon-pulse {
-      position: relative;
+    .brand-dot {
       width: 7px;
       height: 7px;
-      border-radius: 50%;
-      background: var(--accent-green);
+      background: var(--red);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+    .brand small {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-3);
+      letter-spacing: 0.06em;
+      margin-left: 2px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13.5px;
+      color: var(--ink-2);
+      white-space: nowrap;
+    }
+    .nav a { transition: color 0.15s ease; }
+    .nav a:hover { color: var(--ink); }
+    .nav .nav-blog { color: var(--ink); font-weight: 500; }
+    .nav .nav-blog:hover { opacity: 0.65; }
+
+    /* 语言切换：右上角（中 / EN） */
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 2px;
+      user-select: none;
+    }
+    .lang-switch button {
+      border: none;
+      background: transparent;
+      font: inherit;
+      color: var(--ink-3);
+      padding: 3px 9px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .lang-switch button:hover { color: var(--ink); }
+    .lang-switch button.is-active {
+      background: var(--ink);
+      color: var(--bg);
     }
 
-    .beacon-pulse::before {
+    /* =========================================================
+       03. 首屏：左重右轻的非对称 + 竖排题签 + 印章
+       ========================================================= */
+    .hero {
+      position: relative;
+      padding: 104px 0 116px;
+      overflow: hidden;
+    }
+    .ghost {
+      position: absolute;
+      top: -60px;
+      right: -30px;
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 380px;
+      line-height: 1;
+      color: var(--ghost);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 56px;
+      align-items: end;
+    }
+    .now {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-2);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 7px 12px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .now:hover { border-color: #d4d4d8; transform: translateY(-1px); }
+    .now-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--live);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .now-dot::after {
       content: "";
       position: absolute;
       inset: -3px;
       border-radius: 50%;
-      background: var(--accent-green);
-      opacity: 0.5;
-      animation: beacon-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      background: var(--live);
+      opacity: 0.4;
+      animation: now-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
-
-    @keyframes beacon-ping {
-      75%, 100% {
-        transform: scale(2.4);
-        opacity: 0;
-      }
+    @keyframes now-ping {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
     }
-
-    .hero-headline {
-      font-family: var(--font-serif);
-      font-size: clamp(2.3rem, 4.4vw, 3.35rem);
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      color: #0c0e11;
-      line-height: 1.32;
-      margin-bottom: 22px;
+    .now-label { color: var(--ink-3); letter-spacing: 0.14em; }
+    .now-text { transition: opacity 0.18s ease; }
+    .now-hint { color: var(--ink-3); font-size: 11px; }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      margin-bottom: 26px;
     }
-
-    .hero-manifesto-lead {
-      font-size: 1.1rem;
-      color: var(--text-body);
-      line-height: 1.86;
-      margin-bottom: 24px;
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5.6vw, 62px);
+      font-weight: 900;
+      line-height: 1.24;
+      letter-spacing: 0.01em;
+      margin-bottom: 30px;
     }
+    .hero h1 .accent { color: var(--red); }
+    .hero-lead {
+      font-size: 16px;
+      color: var(--ink-2);
+      max-width: 30em;
+      margin-bottom: 38px;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 
-    .hero-persona-tags {
+    /* 竖排题签 + 印章（印章字序：右列「三言」、左列「二鱼」） */
+    .side {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .hero-persona-pill {
-      background: rgba(0, 0, 0, 0.04);
-      padding: 3px 11px;
-      border-radius: var(--radius-pill);
-    }
-
-    /* 右侧错落浮岛：微倾斜便笺手账（Offset Sticky Note Card） */
-    .hero-floating-sticky {
-      background: var(--bg-paper);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: var(--radius-lg);
-      padding: 30px 28px;
-      box-shadow: var(--shadow-paper);
-      transform: rotate(1.2deg);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-
-    .hero-floating-sticky:hover {
-      transform: rotate(0deg) translateY(-3px);
-      box-shadow: var(--shadow-float);
-    }
-
-    .sticky-pin-tag {
-      position: absolute;
-      top: 18px;
-      right: 20px;
-      font-family: var(--font-serif);
-      font-size: 0.68rem;
-      color: var(--accent-vermilion);
-      border: 1px dashed var(--accent-vermilion);
-      padding: 1px 7px;
-      border-radius: 4px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    .sticky-title {
-      font-family: var(--font-serif);
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: var(--text-title);
-      margin-bottom: 10px;
-    }
-
-    .sticky-quote {
-      font-size: 0.86rem;
-      color: var(--text-body);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .sticky-metric-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .metric-chip {
-      background: #ffffff;
-      border: 1px solid var(--border-light);
-      padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--text-title);
-    }
-
-    .sticky-wechat-inline {
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border-light);
+      gap: 18px;
+      padding-bottom: 6px;
     }
-
-    .sticky-qr-img {
-      width: 58px;
-      height: 58px;
-      border-radius: 6px;
-      border: 1px solid var(--border-light);
-      padding: 2px;
-      background: #ffffff;
-      flex-shrink: 0;
+    .vertical {
+      writing-mode: vertical-rl;
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.42em;
+      color: var(--ink-2);
+      border-left: 1px solid var(--line);
+      padding-left: 14px;
     }
-
-    .sticky-qr-desc h5 {
-      font-size: 0.82rem;
+    .seal {
+      width: 46px;
+      height: 46px;
+      background: var(--red);
+      color: #f7f5f0;
+      display: grid;
+      grid-template: 1fr 1fr / 1fr 1fr;
+      grid-auto-flow: column;
+      direction: rtl;
+      font-family: var(--serif);
       font-weight: 700;
-      color: var(--text-title);
-      margin-bottom: 2px;
-    }
-
-    .sticky-qr-desc p {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin: 0;
+      font-size: 16px;
+      line-height: 1;
+      place-items: center;
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(179, 53, 44, 0.28);
+      user-select: none;
     }
 
     /* =========================================================
-       05. 第二幕：自研器物展台（深度参差 Bento 结构）
+       04. 按钮与文字链接
        ========================================================= */
-    .section-showcase {
-      margin-bottom: 96px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      transition: all 0.16s ease;
+      cursor: pointer;
     }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: #000000; transform: translateY(-1px); }
+    .btn-ghost { border-color: var(--line); background: transparent; color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--ink-3); background: var(--card); }
+    .textlink {
+      font-size: 13.5px;
+      color: var(--ink-2);
+      transition: color 0.15s ease;
+    }
+    .textlink:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
-    .section-stage-title-row {
+    /* =========================================================
+       05. 区块通用
+       ========================================================= */
+    section { padding: 92px 0; }
+    .section-head {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 28px;
-      border-bottom: 1px solid var(--border-light);
-      padding-bottom: 14px;
+      gap: 16px;
+      margin-bottom: 44px;
     }
-
-    .block-serif-title {
-      font-family: var(--font-serif);
-      font-size: 1.42rem;
-      font-weight: 700;
-      color: var(--text-title);
-      letter-spacing: 0.01em;
-    }
-
-    /* 卷壹：lumi 拾光日记（宽幅大展台） */
-    .flagship-stage {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 42px 48px;
-      box-shadow: var(--shadow-card);
-      margin-bottom: 36px;
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 40px;
-      align-items: center;
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .flagship-stage:hover {
-      box-shadow: var(--shadow-float);
-      border-color: var(--border-focus);
-    }
-
-    .stage-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      background: rgba(194, 120, 3, 0.08);
-      padding: 3px 10px;
-      border-radius: var(--radius-pill);
-      margin-bottom: 14px;
-      letter-spacing: 0.06em;
-    }
-
-    .stage-title {
-      font-size: 1.85rem;
+    .section-head h2 {
+      font-family: var(--serif);
+      font-size: 26px;
       font-weight: 800;
-      color: var(--text-title);
-      letter-spacing: -0.025em;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .stage-version-chip {
-      font-size: 0.74rem;
-      font-family: var(--font-mono);
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-light);
-      padding: 2px 7px;
-      border-radius: 6px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .stage-subtitle {
-      font-family: var(--font-serif);
-      font-size: 1.02rem;
-      font-weight: 600;
-      color: var(--accent-gold);
-      margin-bottom: 14px;
-      letter-spacing: 0.02em;
-    }
-
-    .stage-desc {
-      font-size: 0.94rem;
-      color: var(--text-body);
-      line-height: 1.76;
-      margin-bottom: 26px;
-    }
-
-    .stage-action-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px 14px;
-    }
-
-    .btn-atelier-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--text-title);
-      color: #ffffff;
-      padding: 9px 18px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-atelier-primary:hover {
-      background: #2b2e38;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
-    }
-
-    .btn-atelier-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg-surface);
-      color: var(--text-title);
-      border: 1px solid var(--border);
-      padding: 9px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-atelier-secondary:hover {
-      background: var(--bg-subtle);
-      border-color: var(--border-focus);
-      transform: translateY(-1px);
-    }
-
-    .stage-link-sub {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-left: 6px;
-      transition: color 0.2s ease;
-    }
-
-    .stage-link-sub:hover {
-      color: var(--text-title);
-      text-decoration: underline;
-    }
-
-    /* 画卷流视窗（手账画卷感） */
-    .interactive-journal-window {
-      background: #fdfdfd;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 22px 24px;
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.02), var(--shadow-sm);
-    }
-
-    .window-top-dots {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-light);
-      font-size: 0.78rem;
-      font-family: var(--font-serif);
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .journal-stream {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .stream-item {
-      display: flex;
-      gap: 14px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      background: #ffffff;
-      border: 1px solid var(--border-light);
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .stream-item:hover, .stream-item.active {
-      border-color: rgba(194, 120, 3, 0.35);
-      background: rgba(194, 120, 3, 0.025);
-      transform: translateX(3px);
-    }
-
-    .stream-time {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-gold);
-      font-weight: 700;
-      white-space: nowrap;
-      padding-top: 1px;
-    }
-
-    .stream-content {
-      font-size: 0.85rem;
-      color: var(--text-body);
-      line-height: 1.55;
-    }
-
-    .stream-tag {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    /* 错落参差展台：左侧三言笔记 ｜ 右侧垂直沉降 48px 黑曜石图床 */
-    .staggered-bento-spread {
-      display: grid;
-      grid-template-columns: 1.35fr 0.85fr;
-      gap: 32px;
-      align-items: start;
-    }
-
-    /* 卷贰：lumi 三言笔记（纸笺微叠层） */
-    .card-sprout-note {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 38px 40px;
-      box-shadow: var(--shadow-card);
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card-sprout-note:hover {
-      box-shadow: var(--shadow-float);
-      border-color: var(--border-focus);
-      transform: translateY(-4px);
-    }
-
-    .layered-note-sheet {
-      position: relative;
-      margin: 24px 0 26px;
-      padding-top: 10px;
-    }
-
-    .sheet-underlay {
-      position: absolute;
-      top: 0;
-      left: 14px;
-      right: -10px;
-      height: 100%;
-      background: #f1f2f5;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      transform: rotate(-1.5deg);
-      z-index: 1;
-    }
-
-    .sheet-main {
-      position: relative;
-      z-index: 2;
-      background: var(--bg-paper);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: var(--radius-sm);
-      padding: 18px 22px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .wiki-tag-pill {
-      color: #0284c7;
-      background: rgba(2, 132, 199, 0.08);
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.78rem;
-    }
-
-    /* 卷叁：三言图图（垂直沉降 48px · 歙砚墨黑微工坊） */
-    .card-dark-tutu {
-      margin-top: 48px;
-      background: var(--bg-dark-card);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-lg);
-      padding: 34px 30px;
-      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.25);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card-dark-tutu:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.35);
-      border-color: rgba(255, 255, 255, 0.24);
-    }
-
-    .tutu-dark-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.12);
-      padding: 3px 10px;
-      border-radius: var(--radius-pill);
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    .tutu-dark-dropzone {
-      border: 1px dashed rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: var(--radius-sm);
-      padding: 24px 16px;
-      margin: 18px 0;
-      text-align: center;
-      transition: all 0.25s ease;
-    }
-
-    .card-dark-tutu:hover .tutu-dark-dropzone {
-      border-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.08);
-    }
-
-    .btn-tutu-light {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ffffff;
-      color: var(--text-title);
-      font-size: 0.84rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-    }
-
-    .btn-tutu-light:hover {
-      background: #f0f1f4;
-      transform: translateY(-1px);
-    }
-
-    /* =========================================================
-       06. 第三幕：本地优先信条（阶梯阶跃 · 雕塑感展台）
-       ========================================================= */
-    .section-manifesto-stage {
-      margin-bottom: 96px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 48px 52px;
-      box-shadow: var(--shadow-card);
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 48px;
-      align-items: center;
-      position: relative;
-    }
-
-    .manifesto-pre-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent-green);
-      background: rgba(21, 128, 61, 0.08);
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: var(--radius-pill);
       letter-spacing: 0.06em;
-      margin-bottom: 12px;
     }
-
-    .manifesto-quote {
-      font-family: var(--font-serif);
-      font-size: clamp(1.4rem, 2.6vw, 1.95rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.44;
-      color: var(--text-title);
-      margin-bottom: 16px;
-    }
-
-    .manifesto-body {
-      font-size: 0.94rem;
-      color: var(--text-muted);
-      line-height: 1.82;
-    }
-
-    .manifesto-stagger-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .stagger-chip {
-      background: var(--bg-paper);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
-    }
-
-    .stagger-chip:nth-child(2) {
-      margin-left: 16px;
-    }
-
-    .stagger-chip:nth-child(3) {
-      margin-left: 32px;
-    }
-
-    .stagger-chip:hover {
-      transform: translateX(4px);
-      border-color: var(--border-focus);
-    }
-
-    .stagger-chip-icon {
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .stagger-chip-text h4 {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-title);
-      margin-bottom: 2px;
-    }
-
-    .stagger-chip-text p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      line-height: 1.45;
+    .section-note {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
     }
 
     /* =========================================================
-       07. 第四幕：墨痕文薮与版记（无界文集纸卷流 × 便签收尾）
+       06. 自研应用：壹通栏，贰叁并排错落（沉降 36px、底边齐平）
        ========================================================= */
-    .section-editorial-river {
+    .app {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 30px 32px;
+      transition: all 0.2s ease;
+    }
+    .app:hover {
+      border-color: #d2ccbd;
+      box-shadow: 0 14px 32px -18px rgba(23, 24, 26, 0.22);
+      transform: translateY(-3px);
+    }
+    .app-lead { margin-bottom: 18px; }
+    .app-row {
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 48px;
-      margin-bottom: 64px;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       align-items: start;
     }
-
-    .journal-frameless-flow {
-      padding: 10px 0;
+    .app-drop { margin-top: 36px; }
+    .app-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
     }
+    .app-num {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--red);
+    }
+    .app-head h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+    .ver {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--ink-2);
+      border: 1px solid var(--line);
+      background: var(--bg);
+      padding: 1px 7px;
+      border-radius: 5px;
+    }
+    .app-platform {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.06em;
+    }
+    .app-desc {
+      font-size: 14.5px;
+      color: var(--ink-2);
+      max-width: 34em;
+      margin-bottom: 22px;
+    }
+    .app-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
 
-    .journal-entry-item {
+    /* =========================================================
+       07. 设计理念：印泥红满幅横带
+       ========================================================= */
+    .manifesto {
+      background: var(--band);
+      color: var(--band-fg);
+      padding: 104px 0;
+    }
+    .manifesto .section-note { color: var(--band-dim); }
+    .quote {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3.4vw, 34px);
+      font-weight: 800;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      max-width: 22em;
+      margin-bottom: 56px;
+    }
+    .quote .accent { color: var(--band-num); }
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+    .principle { border-top: 1px solid var(--band-line); padding-top: 20px; }
+    .principle .num {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--band-num);
       display: block;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--border);
-      transition: all 0.22s ease;
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
     }
-
-    .journal-entry-item:first-of-type {
-      padding-top: 10px;
-    }
-
-    .journal-entry-item:last-of-type {
-      border-bottom: none;
-    }
-
-    .journal-entry-item:hover {
-      transform: translateX(6px);
-    }
-
-    .journal-entry-date {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent-gold);
-      margin-bottom: 4px;
-    }
-
-    .journal-entry-title {
-      font-family: var(--font-serif);
-      font-size: 1.18rem;
+    .principle h4 {
+      font-family: var(--serif);
+      font-size: 17px;
       font-weight: 700;
-      color: var(--text-title);
-      margin-bottom: 6px;
-      letter-spacing: 0.01em;
-      line-height: 1.48;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
     }
-
-    .journal-entry-lead {
-      font-size: 0.88rem;
-      color: var(--text-muted);
+    .principle p {
+      font-size: 13.5px;
+      color: var(--band-dim);
       line-height: 1.7;
     }
 
-    .journal-more-cta {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-top: 24px;
-      font-size: 0.86rem;
+    /* =========================================================
+       08. 长篇随笔：日期左、标题右的编辑式行
+       ========================================================= */
+    .post {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--hair);
+      align-items: baseline;
+      transition: transform 0.18s ease;
     }
-
-    .journal-more-cta a {
-      font-weight: 600;
-      color: var(--text-title);
-      text-decoration: underline;
+    .post:first-of-type { border-top: 1px solid var(--hair); }
+    .post:hover { transform: translateX(6px); }
+    .post-meta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-3);
+      line-height: 1.9;
     }
-
-    /* 右侧：向下滑脱的极简版记便签 */
-    .colophon-quiet-card {
-      margin-top: 20px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px 30px;
-      box-shadow: var(--shadow-card);
+    .post-meta .cat { color: var(--ink-2); }
+    .post h3 {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
     }
+    .post:hover h3 { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
+    .post p { font-size: 14px; color: var(--ink-2); }
 
-    .colophon-quiet-card h4 {
-      font-family: var(--font-serif);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-title);
-      margin-bottom: 10px;
+    /* =========================================================
+       09. 关于：左文右印 + 个人刻度行
+       ========================================================= */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 56px;
+      align-items: start;
     }
-
-    .colophon-quiet-card p {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.72;
+    .about p {
+      font-size: 15px;
+      color: var(--ink-2);
+      max-width: 34em;
       margin-bottom: 14px;
     }
-
-    /* 工作室页脚 */
-    .studio-footer {
-      border-top: 1px solid var(--border-light);
-      padding-top: 36px;
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-sub);
+    .about strong { color: var(--ink); font-weight: 600; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+      margin: 30px 0 8px;
+    }
+    .stat-num {
+      display: block;
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-num small {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-2);
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+    }
+    .about-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; }
+    .about-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 3px;
+      transition: border-color 0.15s ease;
+    }
+    .about-links a:hover { border-color: var(--red); }
+    .about-seal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .about-seal .seal { width: 64px; height: 64px; font-size: 22px; }
+    .about-seal span {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--ink-3);
+      letter-spacing: 0.1em;
+      writing-mode: vertical-rl;
     }
 
     /* =========================================================
-       08. 响应式移动端适配
+       10. 页脚
        ========================================================= */
-    @media (max-width: 960px) {
-      .hero-split-stage {
-        grid-template-columns: 1fr;
-      }
-      .flagship-stage {
-        grid-template-columns: 1fr;
-        padding: 32px 26px;
-      }
-      .staggered-bento-spread {
-        grid-template-columns: 1fr;
-      }
-      .card-dark-tutu {
-        margin-top: 0;
-      }
-      .section-manifesto-stage {
-        grid-template-columns: 1fr;
-        padding: 36px 28px;
-      }
-      .stagger-chip:nth-child(2),
-      .stagger-chip:nth-child(3) {
-        margin-left: 0;
-      }
-      .section-editorial-river {
-        grid-template-columns: 1fr;
-      }
+    .footer { border-top: 1px solid var(--hair); padding: 30px 0 52px; }
+    .footer-inner {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 12.5px;
+      color: var(--ink-3);
     }
+    .footer-inner .mono { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.05em; }
 
-    @media (max-width: 680px) {
-      .studio-container {
-        padding: 32px 18px 80px;
+    /* =========================================================
+       11. 窄屏适配
+       ========================================================= */
+    @media (max-width: 720px) {
+      .wrap { padding: 0 22px; }
+      .nav { gap: 12px; font-size: 13px; }
+      .nav a.hide-sm { display: none; }
+      .brand small { display: none; }
+      .lang-switch button { padding: 3px 7px; }
+      .hero { padding: 64px 0 72px; }
+      .ghost { font-size: 240px; top: -30px; right: -50px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; align-items: start; }
+      .side { flex-direction: row-reverse; justify-content: flex-end; gap: 16px; padding-bottom: 0; }
+      .vertical {
+        writing-mode: horizontal-tb;
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+        letter-spacing: 0.3em;
       }
-      .hero-headline {
-        font-size: 1.95rem;
-      }
-      .brand-tagline-sub {
-        display: none;
-      }
+      section { padding: 64px 0; }
+      .manifesto { padding: 72px 0; }
+      .section-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 30px; }
+      .app { padding: 24px 20px; }
+      .app-row { grid-template-columns: 1fr; gap: 16px; }
+      .app-drop { margin-top: 16px; }
+      .app-platform { margin-left: 0; width: 100%; }
+      .principles { grid-template-columns: 1fr; gap: 26px; }
+      .post { grid-template-columns: 1fr; gap: 4px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-seal { flex-direction: row; }
+      .about-seal span { writing-mode: horizontal-tb; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .fish-rail { display: none; }
+      .now-hint { display: none; }
+    }
+    @media (max-width: 1240px) {
+      .fish-rail { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 环境柔和漫反射光晕 -->
-  <div class="studio-ambient-light">
-    <div class="light-glow-1"></div>
-    <div class="light-glow-2"></div>
-  </div>
+  <!-- 读页小鱼：随滚动游动（「鱼游深水」的字面化） -->
+  <div class="fish-rail" aria-hidden="true"><span class="fish" id="fish">鱼</span></div>
 
-  <!-- 顶部工作室导航栏 -->
-  <header class="studio-header">
-    <div class="header-inner">
-      <div class="brand-mark">
-        <span class="brand-logo-dot"></span>
-        <span>三言二鱼</span>
-        <span class="brand-tagline-sub">Studio Sanyan</span>
-      </div>
-      <nav class="studio-nav">
-        <a href="#showcase">自研应用</a>
-        <a href="#manifesto">设计理念</a>
-        <a href="#journal">随笔文章</a>
-        <a href="#about">关于作者</a>
-        <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" class="nav-btn-highlight">
-          进入博客 ↗
-        </a>
+  <!-- 顶部导航 -->
+  <header class="header">
+    <div class="wrap header-inner">
+      <div class="brand"><span class="brand-dot"></span>三言二鱼 <small>rockdork.cn</small></div>
+      <nav class="nav">
+        <a href="#apps" data-i18n="nav.apps">应用</a>
+        <a href="#idea" class="hide-sm" data-i18n="nav.idea">理念</a>
+        <a href="#writing" class="hide-sm" data-i18n="nav.writing">随笔</a>
+        <a href="#about" class="hide-sm" data-i18n="nav.about">关于</a>
+        <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" class="nav-blog" data-i18n="nav.blog">博客 ↗</a>
+        <span class="lang-switch" role="group" aria-label="Language / 语言">
+          <button type="button" data-lang="zh" aria-label="切换到中文">中</button>
+          <button type="button" data-lang="en" aria-label="Switch to English">EN</button>
+        </span>
       </nav>
     </div>
   </header>
 
-  <main class="studio-container">
+  <main>
 
-    <!-- 第一幕：品牌心智宣告（左侧文学流 ｜ 右侧微倾斜手账纸笺错落浮岛） -->
-    <section class="hero-split-stage">
-      <div>
-        <div class="hero-pill-bar">
-          <div class="live-beacon-pill" id="beacon-cycle-btn" title="点击切换当下的生活与开发切片">
-            <span class="beacon-pulse"></span>
-            <span id="beacon-status-text">🏃 晨跑打卡 · 深圳 · 保持节奏与呼吸</span>
-            <span style="opacity: 0.6; font-size: 0.72rem; margin-left: 2px;">✨ 戳</span>
+    <div class="wrap">
+    <!-- 首屏 -->
+    <section class="hero">
+      <div class="ghost" aria-hidden="true">鱼</div>
+      <div class="hero-grid">
+        <div>
+          <!-- 此刻（NOW）：点击或每 8 秒换一条近况，文案在本页脚本 I18N 表里改 -->
+          <button class="now" id="now" type="button" title="戳一下，换一条近况" aria-live="polite">
+            <span class="now-dot"></span>
+            <span class="now-label">NOW</span>
+            <span class="now-text" id="now-text">深圳湾晨跑 5.2 km · 配速 5:48</span>
+            <span class="now-hint">↻</span>
+          </button>
+          <p class="eyebrow" data-i18n="hero.eyebrow">石先生 (STONE) · 独立开发者 · 深圳</p>
+          <h1 data-i18n-html="hero.h1">轻巧、克制、<br>本地优先的<br>个人工具<span class="accent">。</span></h1>
+          <p class="hero-lead" data-i18n="hero.lead">
+            三言两语，鱼游深水。在嘈杂的云端时代，把数据主权、离线专注与安静呼吸，
+            完整交还给每一位独立使用者。
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#apps" data-i18n="hero.cta1">浏览自研应用</a>
+            <a class="btn btn-ghost" href="https://blog.rockdork.cn/" target="_blank" rel="noopener" data-i18n="hero.cta2">进入博客 ↗</a>
           </div>
-          <span style="font-size: 0.8rem; color: var(--text-sub);">石先生（Stone）的独立自留地</span>
         </div>
-
-        <h1 class="hero-headline">
-          构筑轻巧、克制、<br>
-          本地优先的个人数字器物。
-        </h1>
-
-        <p class="hero-manifesto-lead">
-          三言两语，鱼游深水。在嘈杂的云端时代，执着于用本地优先（Local-First）架构，把数据主权、离线专注与安静呼吸，完整交还给每一个独立使用者。
-        </p>
-
-        <div class="hero-persona-tags">
-          <span class="hero-persona-pill">🏃 跑者（累计 2,400+ km）</span>
-          <span class="hero-persona-pill">✍️ 独立写作者</span>
-          <span class="hero-persona-pill">🍼 新晋奶爸</span>
-          <span class="hero-persona-pill">🌱 本地优先</span>
-          <span class="hero-persona-pill">📍 深圳</span>
+        <div class="side" aria-hidden="true">
+          <div class="vertical">三言两语 · 鱼游深水</div>
+          <div class="seal"><span>三</span><span>言</span><span>二</span><span>鱼</span></div>
         </div>
       </div>
-
-      <!-- 右侧错落便笺浮岛（微倾斜手写感手账） -->
-      <aside class="hero-floating-sticky" id="about">
-        <span class="sticky-pin-tag">跑步与生活</span>
-        <h3 class="sticky-title">关于石先生</h3>
-        <p class="sticky-quote">
-          新晋奶爸，喜欢跑步、折腾代码与写字。相信长期主义，享受把想法打磨成实用工具的过程。
-        </p>
-        <div class="sticky-metric-row">
-          <div class="metric-chip">🏃 跑量 2,400+ km</div>
-          <div class="metric-chip">🏅 半马 PB 1:48</div>
-          <div class="metric-chip">🍼 奶爸修炼中</div>
-          <div class="metric-chip">💻 持续开源</div>
-        </div>
-
-        <div class="sticky-wechat-inline">
-          <img class="sticky-qr-img" src="https://img.rockdork.cn/2026/05/07/mov32qxgz5vp5n.jpg" alt="微信公众号二维码">
-          <div class="sticky-qr-desc">
-            <h5>微信公众号 · 三言二鱼</h5>
-            <p>微信搜一搜「三言二鱼」<br>关注作者每周的生活、跑步与产品随笔。</p>
-          </div>
-        </div>
-      </aside>
     </section>
 
-    <!-- 第二幕：自研器物展台（彻底破除等高 · 深度参差 Bento） -->
-    <section class="section-showcase" id="showcase">
-      <div class="section-stage-title-row">
-        <h2 class="block-serif-title">自研应用与工具</h2>
-        <span style="font-size:0.84rem; color:var(--text-muted);">本地优先 · 简约留白 · 独立打造</span>
+    <!-- 自研应用 -->
+    <section id="apps">
+      <div class="section-head">
+        <h2 data-i18n="apps.title">自研应用</h2>
+        <span class="section-note" data-i18n="apps.note">03 项 · 全部本地优先</span>
       </div>
 
-      <!-- 卷壹：旗舰大展台 · lumi 拾光日记 -->
-      <article class="flagship-stage">
-        <div>
-          <span class="stage-badge">旗舰应用 · 画卷流日记</span>
-          <div class="stage-title">
-            <span>lumi 拾光日记</span>
-            <span class="stage-version-chip">v0.2.4</span>
-          </div>
-          <div class="stage-subtitle">晨昏晓月 · 本地优先的画卷流日记</div>
-          <p class="stage-desc">
-            生活打点与画卷流日记工具。无缝记录日常琐碎、习惯打卡与深度沉淀。本地 SQLite 极速存储，端到端加密双向同步。
-          </p>
-          <div class="stage-action-bar">
-            <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4-aarch64.dmg" class="btn-atelier-primary" target="_blank" rel="noopener">
-              macOS 下载 (DMG)
-            </a>
-            <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4.apk" class="btn-atelier-secondary" target="_blank" rel="noopener">
-              Android APK
-            </a>
-            <a href="https://gitee.com/rockdorky/lumi-diary-releases/releases" class="stage-link-sub" target="_blank" rel="noopener">
-              发布历史与更新日志 →
-            </a>
-          </div>
+      <!-- 壹 · 旗舰通栏 -->
+      <article class="app app-lead">
+        <div class="app-head">
+          <span class="app-num">壹</span>
+          <h3 data-i18n="app1.name">lumi 拾光日记</h3>
+          <span class="ver">v0.2.4</span>
+          <span class="app-platform">MACOS · ANDROID</span>
         </div>
-
-        <!-- 交互式画卷流视窗 -->
-        <div class="interactive-journal-window">
-          <div class="window-top-dots">
-            <span>LumiDiary · 画卷流预览</span>
-            <span style="font-size:0.72rem; color:var(--accent-gold);">● 实时沉淀</span>
-          </div>
-          <div class="journal-stream">
-            <div class="stream-item active">
-              <span class="stream-time">06:30</span>
-              <div>
-                <div class="stream-content">晨跑 5.2 km。深圳湾海风很清爽，节奏平稳，开启新的一天。</div>
-                <div class="stream-tag">#跑步打卡 · 深圳湾</div>
-              </div>
-            </div>
-            <div class="stream-item">
-              <span class="stream-time">14:15</span>
-              <div>
-                <div class="stream-content">读《设计的形式》：好的工具应当像一把趁手的刻刀，安静好用。</div>
-                <div class="stream-tag">#读书笔记 · 设计思考</div>
-              </div>
-            </div>
-            <div class="stream-item">
-              <span class="stream-time">21:40</span>
-              <div>
-                <div class="stream-content">宝宝睡熟了。泡一杯茶，坐下来给日记重构端到端同步通道。</div>
-                <div class="stream-tag">#独立开发 · 拾光日记</div>
-              </div>
-            </div>
-          </div>
+        <p class="app-desc" data-i18n="app1.desc">
+          画卷流的本地日记与生活打点。SQLite 本地极速存储，端到端加密双向同步，离线完整可用。
+        </p>
+        <div class="app-actions">
+          <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4-aarch64.dmg" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
+          <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4.apk" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
+          <a class="textlink" href="https://gitee.com/rockdorky/lumi-diary-releases/releases" target="_blank" rel="noopener" data-i18n="app1.history">发布历史 →</a>
         </div>
       </article>
 
-      <!-- 错落展台：左侧舒展笔记卡片盒 ｜ 右侧向下沉降 48px 黑曜石图床岛 -->
-      <div class="staggered-bento-spread">
-
-        <!-- 卷贰：lumi 三言笔记 -->
-        <article class="card-sprout-note">
-          <div>
-            <span class="stage-badge" style="color:var(--accent-green); background:rgba(21,128,61,0.08);">轻量工具 · 卡片笔记</span>
-            <div class="stage-title" style="font-size:1.55rem;">
-              <span>lumi 三言笔记</span>
-              <span class="stage-version-chip">v0.1.2</span>
-            </div>
-            <div class="stage-subtitle" style="font-size:0.92rem; color:var(--accent-green);">破土灵芽 · 极简留白卡片笔记</div>
-            <p class="stage-desc" style="font-size:0.88rem;">
-              纯粹克制的碎片笔记工具。瞬时捕获、双向链接、专注留白。没有臃肿繁冗的格式层级，还原纯文字思考的触感。
-            </p>
-
-            <!-- 模拟微层叠便笺 -->
-            <div class="layered-note-sheet">
-              <div class="sheet-underlay"></div>
-              <div class="sheet-main">
-                <div style="font-weight:700; margin-bottom:4px; font-size:0.86rem; color:var(--text-title);">🌱 灵感微卡：数据主权</div>
-                <p style="font-size:0.82rem; color:var(--text-body); margin:0;">
-                  在设计工具时，必须牢记 <span class="wiki-tag-pill">[[本地优先架构]]</span>。唯有把数据真正落在用户磁盘，才能产生长期的信赖感。
-                </p>
-              </div>
-            </div>
+      <!-- 贰叁并排，叁沉降 36px -->
+      <div class="app-row">
+        <article class="app">
+          <div class="app-head">
+            <span class="app-num">贰</span>
+            <h3 data-i18n="app2.name">lumi 三言笔记</h3>
+            <span class="ver">v0.1.2</span>
+            <span class="app-platform">MACOS · ANDROID</span>
           </div>
-
-          <div class="stage-action-bar">
-            <a href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2-aarch64.dmg" class="btn-atelier-primary" target="_blank" rel="noopener">
-              macOS 下载 (DMG)
-            </a>
-            <a href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2.apk" class="btn-atelier-secondary" target="_blank" rel="noopener">
-              Android APK
-            </a>
-            <a href="https://gitee.com/rockdorky/lumi-note-releases/releases" class="stage-link-sub" target="_blank" rel="noopener">
-              发布历史 →
-            </a>
+          <p class="app-desc" data-i18n="app2.desc">
+            极简卡片笔记。瞬时捕获、双向链接、专注留白，还原纯文字思考的触感。
+          </p>
+          <div class="app-actions">
+            <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2-aarch64.dmg" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
+            <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2.apk" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
           </div>
         </article>
 
-        <!-- 卷叁：三言图图（垂直沉降 48px · 歙砚墨黑微工坊） -->
-        <article class="card-dark-tutu">
-          <div>
-            <span class="tutu-dark-badge">Web 工具 · 云图床</span>
-            <div style="font-size:1.45rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-              <span>三言图图</span>
-              <span style="font-size:0.72rem; opacity:0.6; font-family:var(--font-mono);">v0.2.10</span>
-            </div>
-            <div style="font-size:0.88rem; color:#94a3b8; margin-bottom:12px;">澄光画镜 · 轻量云图床上传工具</div>
-            <p style="font-size:0.84rem; color:#cbd5e1; line-height:1.64;">
-              专为创作者打造的轻量图床 Web 应用。秒级拖拽、直传腾讯云 COS、七牛云与 GitHub，一键生成 Markdown 链接。
-            </p>
-
-            <!-- 模拟拖拽交互区 -->
-            <div class="tutu-dark-dropzone">
-              <div style="font-size:1.4rem; margin-bottom:4px;">🖼️</div>
-              <div style="font-size:0.82rem; color:#e2e8f0; font-weight:500;">拖拽图片到此</div>
-              <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">秒级生成 Markdown 链接</div>
-            </div>
+        <article class="app app-drop">
+          <div class="app-head">
+            <span class="app-num">叁</span>
+            <h3 data-i18n="app3.name">三言图图</h3>
+            <span class="ver">v0.2.10</span>
+            <span class="app-platform">WEB</span>
           </div>
-
-          <div>
-            <a href="https://tutu.rockdork.cn/" class="btn-tutu-light" target="_blank" rel="noopener">
-              在线使用 (Web) ↗
-            </a>
-            <a href="https://tutu.rockdork.cn/about" target="_blank" rel="noopener" style="font-size:0.8rem; color:#94a3b8; margin-left:12px; text-decoration:underline;">
-              关于图床
-            </a>
+          <p class="app-desc" data-i18n="app3.desc">
+            轻量云图床。拖拽直传 COS、七牛云与 GitHub，一键生成 Markdown 链接。
+          </p>
+          <div class="app-actions">
+            <a class="btn btn-primary" href="https://tutu.rockdork.cn/" target="_blank" rel="noopener" data-i18n="app3.open">在线使用 ↗</a>
           </div>
         </article>
-
       </div>
     </section>
-
-    <!-- 第三幕：本地优先信条（阶梯阶跃 · 雕塑感展台） -->
-    <section class="section-manifesto-stage" id="manifesto">
-      <div>
-        <span class="manifesto-pre-tag">本地优先（Local-First）理念</span>
-        <h2 class="manifesto-quote">
-          “你的日记和思考属于你，<br>不依赖任何第三方的云端服务器。”
-        </h2>
-        <p class="manifesto-body">
-          在商业云服务动辄调整、关停的当下，三言二鱼坚持「本地优先（Local-First）」：数据沉淀在设备本身的 SQLite，离线完整可用，双向同步仅走端到端加密通道。
-        </p>
-      </div>
-
-      <!-- 右侧向右逐级探出的阶梯式徽章柱 -->
-      <div class="manifesto-stagger-stack">
-        <div class="stagger-chip">
-          <span class="stagger-chip-icon">🔒</span>
-          <div class="stagger-chip-text">
-            <h4>壹 · 数据主权归属</h4>
-            <p>本地 SQLite 存储，支持完整导出，无云端绑架。</p>
-          </div>
-        </div>
-        <div class="stagger-chip">
-          <span class="stagger-chip-icon">⚡️</span>
-          <div class="stagger-chip-text">
-            <h4>贰 · 瞬时冷启动</h4>
-            <p>零网络请求等待，毫秒级响应，打开即写。</p>
-          </div>
-        </div>
-        <div class="stagger-chip">
-          <span class="stagger-chip-icon">✈️</span>
-          <div class="stagger-chip-text">
-            <h4>叁 · 离线完整可用</h4>
-            <p>即便没有网络，所有编辑与浏览功能毫无受损。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 第四幕：长篇随笔与版记（无界文集纸卷流 × 纤巧版记卡片） -->
-    <div class="section-editorial-river" id="journal">
-
-      <!-- 左侧：无界长篇随笔流（彻底丢弃大白框！纯粹文学版式） -->
-      <section class="journal-frameless-flow">
-        <div style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px;">
-          <h2 class="block-serif-title" style="font-size:1.32rem;">长篇随笔与思考</h2>
-        </div>
-
-        <!-- 随笔 1 -->
-        <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" class="journal-entry-item">
-          <div class="journal-entry-date">2026.04 · 跑步感悟</div>
-          <h3 class="journal-entry-title">跑过四十二公里，与长达一年的独立开发</h3>
-          <p class="journal-entry-lead">
-            马拉松最痛苦的不是最后五公里，而是前三十公里的配速克制；写软件亦然。
-          </p>
-        </a>
-
-        <!-- 随笔 2 -->
-        <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" class="journal-entry-item">
-          <div class="journal-entry-date">2026.02 · 技术思考</div>
-          <h3 class="journal-entry-title">为什么我们执着于「本地优先（Local-First）」架构？</h3>
-          <p class="journal-entry-lead">
-            探讨数据归属权、端到端同步机制，以及一个单人开发者如何守护使用者的安静记忆。
-          </p>
-        </a>
-
-        <!-- 随笔 3 -->
-        <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" class="journal-entry-item">
-          <div class="journal-entry-date">2025.11 · 生活记录</div>
-          <h3 class="journal-entry-title">给刚出生的你：在数字喧嚣的世界里专注呼吸</h3>
-          <p class="journal-entry-lead">
-            新晋奶爸的温润手记。关于时间、代码与微小生活。
-          </p>
-        </a>
-
-        <div class="journal-more-cta">
-          <span style="color:var(--text-muted); font-size:0.84rem;">阅读更多长篇随笔：</span>
-          <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener">独立博客 (blog.rockdork.cn) →</a>
-          <a href="https://github.com/rockdork" target="_blank" rel="noopener">GitHub 源码 →</a>
-        </div>
-      </section>
-
-      <!-- 右侧：向下滑脱的极简版记便签 -->
-      <aside class="colophon-quiet-card">
-        <h4>本站版记 (Colophon)</h4>
-        <p>
-          本小官网坚持零重型框架，纯手写原生 HTML5 / CSS3 / JavaScript。
-          无 Cookie 追踪，无用户画像收集，单页秒开，温润素宣。
-        </p>
-        <p style="font-size:0.8rem; color:var(--text-sub); line-height:1.64;">
-          字体排印：精调宋体（明体） × 人文无衬线<br>
-          设计语言：错落参差工坊 · 本地优先<br>
-          托管部署：GitHub Pages · rockdork.cn
-        </p>
-        <a href="https://github.com/rockdork/homepage" target="_blank" rel="noopener" style="font-size:0.82rem; color:var(--text-title); font-weight:600; text-decoration:underline;">
-          查看本站开源源码 →
-        </a>
-      </aside>
-
     </div>
 
-    <!-- 工作室页脚 -->
-    <footer class="studio-footer">
-      <p>© 2026 三言二鱼 (rockdork.cn) · 独立工坊 · 本地优先 · 简约留白</p>
+  <!-- 设计理念：印泥红满幅横带 -->
+  <section class="manifesto" id="idea">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="idea.title">设计理念</h2>
+        <span class="section-note">LOCAL-FIRST</span>
+      </div>
+      <p class="quote" data-i18n-html="idea.quote">「你的日记和思考属于你，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」</p>
+      <div class="principles">
+        <div class="principle">
+          <span class="num" data-i18n="idea.p1.k">01 — 数据主权</span>
+          <h4 data-i18n="idea.p1.t">属于自己的存档</h4>
+          <p data-i18n="idea.p1.d">数据沉淀在设备本身的 SQLite，支持完整导出，没有云端绑架。</p>
+        </div>
+        <div class="principle">
+          <span class="num" data-i18n="idea.p2.k">02 — 瞬时响应</span>
+          <h4 data-i18n="idea.p2.t">打开即写</h4>
+          <p data-i18n="idea.p2.d">零网络请求等待，毫秒级冷启动，专注不被打断。</p>
+        </div>
+        <div class="principle">
+          <span class="num" data-i18n="idea.p3.k">03 — 离线可用</span>
+          <h4 data-i18n="idea.p3.t">断网毫无损失</h4>
+          <p data-i18n="idea.p3.d">即便没有网络，所有编辑与浏览功能完整如常。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <!-- 长篇随笔 -->
+    <section id="writing">
+      <div class="section-head">
+        <h2 data-i18n="writing.title">长篇随笔</h2>
+        <a class="section-note" href="https://blog.rockdork.cn/" target="_blank" rel="noopener" style="color: var(--ink-2);">BLOG.ROCKDORK.CN ↗</a>
+      </div>
+      <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
+        <div class="post-meta" data-i18n-html="post1.meta">2026.04<br><span class="cat">跑步感悟</span></div>
+        <div>
+          <h3 data-i18n="post1.title">跑过四十二公里，与长达一年的独立开发</h3>
+          <p data-i18n="post1.lead">马拉松最痛苦的不是最后五公里，而是前三十公里的配速克制；写软件亦然。</p>
+        </div>
+      </a>
+      <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
+        <div class="post-meta" data-i18n-html="post2.meta">2026.02<br><span class="cat">技术思考</span></div>
+        <div>
+          <h3 data-i18n="post2.title">为什么我们执着于「本地优先」架构？</h3>
+          <p data-i18n="post2.lead">数据归属权、端到端同步机制，以及一个单人开发者如何守护使用者的安静记忆。</p>
+        </div>
+      </a>
+      <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
+        <div class="post-meta" data-i18n-html="post3.meta">2025.11<br><span class="cat">生活记录</span></div>
+        <div>
+          <h3 data-i18n="post3.title">给刚出生的你：在数字喧嚣的世界里专注呼吸</h3>
+          <p data-i18n="post3.lead">新晋奶爸的温润手记。关于时间、代码与微小生活。</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- 关于 -->
+    <section id="about" class="about">
+      <div class="about-grid">
+        <div>
+          <div class="section-head">
+            <h2 data-i18n="about.title">关于</h2>
+          </div>
+          <p data-i18n-html="about.p1">
+            <strong>石先生 (Stone)</strong>，独立开发者，住在深圳。喜欢跑步、折腾代码与写字，
+            新晋奶爸，相信长期主义，享受把想法打磨成实用工具的过程。
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-num">2,400<small> km</small></span>
+              <span class="stat-label" data-i18n="stat.run">累计跑量 · RUNNING</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">1:48<small> h</small></span>
+              <span class="stat-label" data-i18n="stat.pb">半马最好成绩 · PB</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num"><span data-i18n="stat.dad.pre">第</span> <span id="dad-days">—</span> <small data-i18n="stat.dad.suf">天</small></span>
+              <span class="stat-label" data-i18n="stat.dad.label">奶爸修行 · DAD LIFE</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">3<small data-i18n="stat.craft.suf"> 件</small></span>
+              <span class="stat-label" data-i18n="stat.craft.label">自研器物 · CRAFTED</span>
+            </div>
+          </div>
+          <p data-i18n="about.p2">
+            微信搜一搜「三言二鱼」，关注每周的生活、跑步与产品随笔。
+          </p>
+          <div class="about-links">
+            <a href="https://github.com/rockdork" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://blog.rockdork.cn/" target="_blank" rel="noopener" data-i18n="about.links.blog">独立博客 ↗</a>
+            <a href="https://tutu.rockdork.cn/" target="_blank" rel="noopener">三言图图 ↗</a>
+          </div>
+        </div>
+        <div class="about-seal" aria-hidden="true">
+          <div class="seal"><span>三</span><span>言</span><span>二</span><span>鱼</span></div>
+          <span>三言二鱼之印</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <span data-i18n="footer.left">© 2026 三言二鱼 · 石先生手写于深圳</span>
+        <span class="mono" data-i18n="footer.right">手写 HTML · 零依赖 · 无追踪</span>
+      </div>
     </footer>
+  </div>
 
   </main>
 
   <script>
-    // ===== 1. 状态胶囊交互（点击轮播日常生活与开发动态） =====
-    const beaconBtn = document.getElementById('beacon-cycle-btn');
-    const beaconText = document.getElementById('beacon-status-text');
-    const statusQuotes = [
-      "🏃 晨跑打卡 · 深圳 · 保持节奏与呼吸",
-      "💻 正在重构 lumi 拾光日记端到端同步协议",
-      "🌱 本地优先（Local-First）：把数据主权还给使用者",
-      "🐟 三言两语，鱼游深水，做一块有温度的石头",
-      "👶 新晋奶爸修炼中：代码与奶瓶齐飞",
-      "✍️ 构思下一篇博客随笔：跑过四十二公里"
-    ];
-    let quoteIndex = 0;
+    (function () {
+      // =========================================================
+      // 中英文案表：新增文案时两列都要加；英文版产品名可按需调整
+      // =========================================================
+      var I18N = {
+        zh: {
+          'meta.title': '三言二鱼 · 独立工坊与数字自留地',
+          'meta.desc': '三言二鱼（石先生）的独立创作者工坊。构筑轻巧、克制、本地优先（Local-First）的个人工具。lumi 拾光日记、lumi 三言笔记、三言图图。',
+          'nav.apps': '应用', 'nav.idea': '理念', 'nav.writing': '随笔', 'nav.about': '关于', 'nav.blog': '博客 ↗',
+          'hero.eyebrow': '石先生 (STONE) · 独立开发者 · 深圳',
+          'hero.h1': '轻巧、克制、<br>本地优先的<br>个人工具<span class="accent">。</span>',
+          'hero.lead': '三言两语，鱼游深水。在嘈杂的云端时代，把数据主权、离线专注与安静呼吸，完整交还给每一位独立使用者。',
+          'hero.cta1': '浏览自研应用', 'hero.cta2': '进入博客 ↗',
+          'apps.title': '自研应用', 'apps.note': '03 项 · 全部本地优先',
+          'app1.name': 'lumi 拾光日记',
+          'app1.desc': '画卷流的本地日记与生活打点。SQLite 本地极速存储，端到端加密双向同步，离线完整可用。',
+          'btn.dmg': 'macOS 下载 (DMG)', 'btn.apk': 'Android APK', 'app1.history': '发布历史 →',
+          'app2.name': 'lumi 三言笔记',
+          'app2.desc': '极简卡片笔记。瞬时捕获、双向链接、专注留白，还原纯文字思考的触感。',
+          'app3.name': '三言图图',
+          'app3.desc': '轻量云图床。拖拽直传 COS、七牛云与 GitHub，一键生成 Markdown 链接。',
+          'app3.open': '在线使用 ↗',
+          'idea.title': '设计理念',
+          'idea.quote': '「你的日记和思考属于你，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」',
+          'idea.p1.k': '01 — 数据主权', 'idea.p1.t': '属于自己的存档',
+          'idea.p1.d': '数据沉淀在设备本身的 SQLite，支持完整导出，没有云端绑架。',
+          'idea.p2.k': '02 — 瞬时响应', 'idea.p2.t': '打开即写',
+          'idea.p2.d': '零网络请求等待，毫秒级冷启动，专注不被打断。',
+          'idea.p3.k': '03 — 离线可用', 'idea.p3.t': '断网毫无损失',
+          'idea.p3.d': '即便没有网络，所有编辑与浏览功能完整如常。',
+          'writing.title': '长篇随笔',
+          'post1.meta': '2026.04<br><span class="cat">跑步感悟</span>',
+          'post1.title': '跑过四十二公里，与长达一年的独立开发',
+          'post1.lead': '马拉松最痛苦的不是最后五公里，而是前三十公里的配速克制；写软件亦然。',
+          'post2.meta': '2026.02<br><span class="cat">技术思考</span>',
+          'post2.title': '为什么我们执着于「本地优先」架构？',
+          'post2.lead': '数据归属权、端到端同步机制，以及一个单人开发者如何守护使用者的安静记忆。',
+          'post3.meta': '2025.11<br><span class="cat">生活记录</span>',
+          'post3.title': '给刚出生的你：在数字喧嚣的世界里专注呼吸',
+          'post3.lead': '新晋奶爸的温润手记。关于时间、代码与微小生活。',
+          'about.title': '关于',
+          'about.p1': '<strong>石先生 (Stone)</strong>，独立开发者，住在深圳。喜欢跑步、折腾代码与写字，新晋奶爸，相信长期主义，享受把想法打磨成实用工具的过程。',
+          'stat.run': '累计跑量 · RUNNING', 'stat.pb': '半马最好成绩 · PB',
+          'stat.dad.pre': '第', 'stat.dad.suf': '天', 'stat.dad.label': '奶爸修行 · DAD LIFE',
+          'stat.craft.suf': ' 件', 'stat.craft.label': '自研器物 · CRAFTED',
+          'about.p2': '微信搜一搜「三言二鱼」，关注每周的生活、跑步与产品随笔。',
+          'about.links.blog': '独立博客 ↗',
+          'footer.left': '© 2026 三言二鱼 · 石先生手写于深圳',
+          'footer.right': '手写 HTML · 零依赖 · 无追踪',
+          now: [
+            '深圳湾晨跑 5.2 km · 配速 5:48',
+            '重构 lumi 拾光日记的端到端同步通道',
+            '宝宝睡后的深夜：改 bug，也写随笔',
+            '读《设计的形式》：好工具应当像一把趁手的刻刀',
+            '公众号「三言二鱼」本周更文中',
+            '构思下一篇随笔：跑者与独立开发的配速学'
+          ]
+        },
+        en: {
+          'meta.title': 'Sanyan Er Yu · Indie Craft Studio',
+          'meta.desc': 'Sanyan Er Yu (Stone) — an indie craft studio building lightweight, restrained, local-first personal tools: lumi Diary, lumi Note, and Sanyan Tutu.',
+          'nav.apps': 'Apps', 'nav.idea': 'Ideas', 'nav.writing': 'Essays', 'nav.about': 'About', 'nav.blog': 'Blog ↗',
+          'hero.eyebrow': 'Stone · Indie Developer · Shenzhen',
+          'hero.h1': 'Lightweight, restrained,<br>local-first<br>personal tools<span class="accent">.</span>',
+          'hero.lead': 'A few words, deep waters. In a noisy, cloud-bound era, local-first software hands data ownership, offline focus, and quiet breathing back to every independent user.',
+          'hero.cta1': 'Browse the apps', 'hero.cta2': 'Visit the blog ↗',
+          'apps.title': 'Self-crafted apps', 'apps.note': '03 apps · all local-first',
+          'app1.name': 'lumi Diary',
+          'app1.desc': 'A scroll-style local diary and life logger. Blazing-fast on-device SQLite, end-to-end encrypted sync, fully usable offline.',
+          'btn.dmg': 'Download for macOS (DMG)', 'btn.apk': 'Android APK', 'app1.history': 'Release history →',
+          'app2.name': 'lumi Note',
+          'app2.desc': 'Minimal card notes. Capture in an instant, link both ways, stay in the white space — pure text thinking.',
+          'app3.name': 'Sanyan Tutu',
+          'app3.desc': 'A lightweight image host. Drag, drop, and upload straight to Tencent COS, Qiniu, or GitHub — Markdown links in one click.',
+          'app3.open': 'Open in browser ↗',
+          'idea.title': 'Philosophy',
+          'idea.quote': '“Your journals and thoughts belong to you — <br>never dependent on any third-party cloud<span class="accent">.</span>”',
+          'idea.p1.k': '01 — Data ownership', 'idea.p1.t': 'An archive that is yours',
+          'idea.p1.d': 'Data lives in on-device SQLite, fully exportable, with no cloud lock-in.',
+          'idea.p2.k': '02 — Instant response', 'idea.p2.t': 'Open and write',
+          'idea.p2.d': 'No network waits, millisecond cold starts, unbroken focus.',
+          'idea.p3.k': '03 — Offline ready', 'idea.p3.t': 'Fully functional offline',
+          'idea.p3.d': 'Every editing and browsing feature works exactly the same without a network.',
+          'writing.title': 'Essays',
+          'post1.meta': '2026.04<br><span class="cat">On running</span>',
+          'post1.title': 'Forty-two kilometres, and a year of building alone',
+          'post1.lead': 'The hardest part of a marathon is not the last five kilometres, but holding pace through the first thirty. So it is with software.',
+          'post2.meta': '2026.02<br><span class="cat">Engineering</span>',
+          'post2.title': 'Why we insist on local-first architecture',
+          'post2.lead': 'Data ownership, end-to-end sync, and how a one-person studio guards its users’ quiet memory.',
+          'post3.meta': '2025.11<br><span class="cat">Life</span>',
+          'post3.title': 'To my newborn: breathing in a noisy digital world',
+          'post3.lead': 'A new dad’s gentle notes on time, code, and small daily life.',
+          'about.title': 'About',
+          'about.p1': '<strong>Stone (石先生)</strong> is an independent developer in Shenzhen. He runs, tinkers with code, and writes — a new dad who believes in the long game, shaping ideas into useful tools.',
+          'stat.run': 'Running · Total km', 'stat.pb': 'Half-marathon PB',
+          'stat.dad.pre': 'Day', 'stat.dad.suf': '', 'stat.dad.label': 'DAYS AS A DAD',
+          'stat.craft.suf': '', 'stat.craft.label': 'Tools crafted',
+          'about.p2': 'Search 三言二鱼 on WeChat for weekly notes on running, code, and life.',
+          'about.links.blog': 'Blog ↗',
+          'footer.left': '© 2026 Sanyan Er Yu · Hand-written in Shenzhen by Stone',
+          'footer.right': 'Hand-written HTML · zero deps · no tracking',
+          now: [
+            'Morning run at Shenzhen Bay · 5.2 km, pace 5:48',
+            'Refactoring lumi Diary’s end-to-end sync',
+            'Late night, baby asleep: fixing bugs and writing essays',
+            'Reading: a good tool should be like a well-fitted chisel',
+            'This week’s post underway for the WeChat journal',
+            'Outlining the next essay: pacing, running, and indie software'
+          ]
+        }
+      };
 
-    if (beaconBtn) {
-      beaconBtn.addEventListener('click', () => {
-        quoteIndex = (quoteIndex + 1) % statusQuotes.length;
-        beaconText.style.opacity = '0';
-        beaconText.style.transform = 'translateY(-3px)';
-        beaconText.style.transition = 'all 0.18s ease';
+      // ===== 语言判定：手动选择（localStorage）优先，否则按浏览器语言 =====
+      function storedLang() {
+        try {
+          var s = localStorage.getItem('syy-lang');
+          return (s === 'zh' || s === 'en') ? s : null;
+        } catch (e) { return null; }
+      }
+      function autoLang() {
+        var l = (navigator.language || navigator.userLanguage || 'zh-CN').toLowerCase();
+        return l.indexOf('zh') === 0 ? 'zh' : 'en';
+      }
+      var lang = storedLang() || autoLang();
 
-        setTimeout(() => {
-          beaconText.textContent = statusQuotes[quoteIndex];
-          beaconText.style.opacity = '1';
-          beaconText.style.transform = 'translateY(0)';
+      var nowText = document.getElementById('now-text');
+      var nowIndex = 0;
+      var nowList = I18N.zh.now;
+
+      function applyLang(next, save) {
+        lang = next;
+        if (save) { try { localStorage.setItem('syy-lang', next); } catch (e) {} }
+        document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+        var dict = I18N[next];
+        document.title = dict['meta.title'];
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute('content', dict['meta.desc']);
+        var tNodes = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < tNodes.length; i++) {
+          var v = dict[tNodes[i].getAttribute('data-i18n')];
+          if (typeof v === 'string') tNodes[i].textContent = v;
+        }
+        var hNodes = document.querySelectorAll('[data-i18n-html]');
+        for (var j = 0; j < hNodes.length; j++) {
+          var hv = dict[hNodes[j].getAttribute('data-i18n-html')];
+          if (typeof hv === 'string') hNodes[j].innerHTML = hv;
+        }
+        var btns = document.querySelectorAll('.lang-switch button');
+        for (var k = 0; k < btns.length; k++) {
+          btns[k].classList.toggle('is-active', btns[k].getAttribute('data-lang') === next);
+        }
+        // 近况文案随语言重置
+        nowList = dict.now;
+        nowIndex = 0;
+        if (nowText) { nowText.style.opacity = '1'; nowText.textContent = nowList[0]; }
+      }
+
+      // ===== 此刻（NOW）近况轮播：点击或每 8 秒换一条 =====
+      var nowBtn = document.getElementById('now');
+      var nowTimer = null;
+      function swapNow(text) {
+        nowText.style.opacity = '0';
+        setTimeout(function () {
+          nowText.textContent = text;
+          nowText.style.opacity = '1';
         }, 180);
-      });
-    }
+      }
+      function nextNow() {
+        nowIndex = (nowIndex + 1) % nowList.length;
+        swapNow(nowList[nowIndex]);
+      }
+      if (nowBtn && nowText) {
+        nowBtn.addEventListener('click', function () {
+          nextNow();
+          clearInterval(nowTimer);
+          nowTimer = setInterval(nextNow, 8000);
+        });
+        nowTimer = setInterval(nextNow, 8000);
+      }
 
-    // ===== 2. 画卷流微交互：点击画卷列表条目高亮 =====
-    const streamItems = document.querySelectorAll('.stream-item');
-    streamItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        streamItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
+      // ===== 奶爸修行天数（按宝宝实际生日调整） =====
+      var dadEl = document.getElementById('dad-days');
+      if (dadEl) {
+        var birth = new Date(2025, 10, 1); // 2025-11-01，按实际生日修改
+        var days = Math.max(1, Math.floor((Date.now() - birth.getTime()) / 86400000));
+        dadEl.textContent = days;
+      }
+
+      // ===== 读页小鱼：随滚动进度游动 =====
+      var fish = document.getElementById('fish');
+      function swim() {
+        if (!fish) return;
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        fish.style.top = 'calc(' + (p * 100).toFixed(2) + '% - 10px)';
+      }
+      window.addEventListener('scroll', swim, { passive: true });
+      window.addEventListener('resize', swim);
+      swim();
+
+      // ===== 语言切换器绑定 + 初始应用 =====
+      var switchBtns = document.querySelectorAll('.lang-switch button');
+      for (var s = 0; s < switchBtns.length; s++) {
+        switchBtns[s].addEventListener('click', function () {
+          applyLang(this.getAttribute('data-lang'), true);
+        });
+      }
+      applyLang(lang, false);
+    })();
   </script>
 </body>
 </html>

@@ -9,8 +9,8 @@
 
 ```text
 homepage/
-├── index.html                   整站就这一个页面（样式内联）
-├── hero-bg.jpg                  首屏背景图
+├── index.html                   整站就这一个页面（样式内联，中英双语）
+├── hero-bg.jpg                  旧版首屏背景图（当前页面未引用，可删）
 ├── CNAME                        自定义域名 → rockdork.cn
 └── 729b6785….txt                域名归属验证文件（🚫 勿删）
 ```

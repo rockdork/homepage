@@ -685,15 +685,15 @@
         <div class="app-head">
           <span class="app-num">壹</span>
           <h3 data-i18n="app1.name">三言日记</h3>
-          <span class="ver">v0.2.4</span>
+          <span class="ver" data-release-repo="rockdorky/lumi-diary-releases">v0.2.55</span>
           <span class="app-platform">MACOS · ANDROID</span>
         </div>
         <p class="app-desc" data-i18n="app1.desc">
           画卷流的本地日记与生活打点。SQLite 本地极速存储，端到端加密双向同步，离线完整可用。
         </p>
         <div class="app-actions">
-          <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4-aarch64.dmg" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
-          <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/download/v0.2.4/LumiDiary-0.2.4.apk" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
+          <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/latest" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
+          <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-diary-releases/releases/latest" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
           <a class="textlink" href="https://gitee.com/rockdorky/lumi-diary-releases/releases" target="_blank" rel="noopener" data-i18n="app1.history">发布历史 →</a>
         </div>
       </article>
@@ -704,15 +704,15 @@
           <div class="app-head">
             <span class="app-num">贰</span>
             <h3 data-i18n="app2.name">三言笔记</h3>
-            <span class="ver">v0.1.2</span>
+            <span class="ver" data-release-repo="rockdorky/lumi-note-releases">v0.1.2</span>
             <span class="app-platform">MACOS · ANDROID</span>
           </div>
           <p class="app-desc" data-i18n="app2.desc">
             极简卡片笔记。瞬时捕获、双向链接、专注留白，还原纯文字思考的触感。
           </p>
           <div class="app-actions">
-            <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2-aarch64.dmg" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
-            <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-note-releases/releases/download/v0.1.2/LumiNote-0.1.2.apk" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
+            <a class="btn btn-primary" href="https://gitee.com/rockdorky/lumi-note-releases/releases/latest" target="_blank" rel="noopener" data-i18n="btn.dmg">macOS 下载 (DMG)</a>
+            <a class="btn btn-ghost" href="https://gitee.com/rockdorky/lumi-note-releases/releases/latest" target="_blank" rel="noopener" data-i18n="btn.apk">Android APK</a>
           </div>
         </article>
 
@@ -1059,6 +1059,19 @@
         });
       }
       applyLang(lang, false);
+    })();
+  </script>
+  <script>
+    // ===== 版本徽标自动跟随 Gitee 最新发布 =====
+    // 下载按钮已指向 /releases/latest 恒定有效；徽标拉取失败时回退静态文本，不阻塞页面。
+    (function () {
+      document.querySelectorAll('.ver[data-release-repo]').forEach(function (el) {
+        var repo = el.getAttribute('data-release-repo');
+        fetch('https://gitee.com/api/v5/repos/' + repo + '/releases/latest')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) { if (d && d.tag_name) el.textContent = d.tag_name; })
+          .catch(function () { /* 静态回退，无需处理 */ });
+      });
     })();
   </script>
 </body>

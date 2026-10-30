@@ -62,36 +62,6 @@
     }
 
     /* =========================================================
-       01. 读页小鱼：左侧细线轨道，随滚动游动（宽屏显示）
-       ========================================================= */
-    .fish-rail {
-      position: fixed;
-      left: calc((100% - 920px) / 2 - 76px);
-      top: 130px;
-      bottom: 130px;
-      width: 1px;
-      background: var(--line);
-      z-index: 5;
-    }
-    .fish {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      font-family: var(--serif);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink-3);
-      background: var(--bg);
-      box-shadow: 0 0 0 2px var(--bg);
-      border-radius: 2px;
-      padding: 7px 1px;
-      line-height: 1;
-      transition: top 0.12s linear;
-      user-select: none;
-    }
-
-    /* =========================================================
        02. 顶部导航
        ========================================================= */
     .header { border-bottom: 1px solid var(--hair); }
@@ -197,45 +167,6 @@
       gap: 56px;
       align-items: end;
     }
-    .now {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--ink-2);
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 7px 12px;
-      margin-bottom: 30px;
-      cursor: pointer;
-      transition: border-color 0.15s ease, transform 0.15s ease;
-    }
-    .now:hover { border-color: #d4d4d8; transform: translateY(-1px); }
-    .now-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--live);
-      position: relative;
-      flex-shrink: 0;
-    }
-    .now-dot::after {
-      content: "";
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: var(--live);
-      opacity: 0.4;
-      animation: now-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-    @keyframes now-ping {
-      75%, 100% { transform: scale(2.2); opacity: 0; }
-    }
-    .now-label { color: var(--ink-3); letter-spacing: 0.14em; }
-    .now-text { transition: opacity 0.18s ease; }
-    .now-hint { color: var(--ink-3); font-size: 11px; }
     .eyebrow {
       font-family: var(--mono);
       font-size: 12px;
@@ -508,33 +439,21 @@
       margin-bottom: 14px;
     }
     .about strong { color: var(--ink); font-weight: 600; }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-      border-top: 1px solid var(--line);
-      padding-top: 26px;
-      margin: 30px 0 8px;
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0 18px;
     }
-    .stat-num {
-      display: block;
-      font-family: var(--serif);
-      font-size: 27px;
-      font-weight: 800;
-      color: var(--ink);
-      line-height: 1.25;
-      font-variant-numeric: tabular-nums;
-    }
-    .stat-num small {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink-2);
-    }
-    .stat-label {
+    .tag-badge {
+      font-size: 12.5px;
       font-family: var(--mono);
-      font-size: 11px;
-      color: var(--ink-3);
-      letter-spacing: 0.08em;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink-2);
+      font-weight: 500;
     }
     .about-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; }
     .about-links a {
@@ -580,7 +499,7 @@
        11. 窄屏适配
        ========================================================= */
     @media (max-width: 720px) {
-      .wrap { padding: 0 22px; }
+      .wrap { padding: 0 20px; }
       .nav { gap: 12px; font-size: 13px; }
       .nav a.hide-sm { display: none; }
       .brand small { display: none; }
@@ -600,7 +519,10 @@
       section { padding: 64px 0; }
       .manifesto { padding: 72px 0; }
       .section-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 30px; }
-      .app { padding: 24px 20px; }
+      .app { padding: 22px 18px; }
+      .btn { padding: 9px 14px; font-size: 13px; }
+      .app-actions { gap: 8px 12px; }
+      .app-actions a.textlink { width: 100%; margin-top: 4px; }
       .app-row { grid-template-columns: 1fr; gap: 16px; }
       .app-platform { margin-left: 0; width: 100%; }
       .principles { grid-template-columns: 1fr; gap: 26px; }
@@ -608,19 +530,10 @@
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
       .about-seal { flex-direction: row; }
       .about-seal span { writing-mode: horizontal-tb; }
-      .stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .fish-rail { display: none; }
-      .now-hint { display: none; }
-    }
-    @media (max-width: 1240px) {
-      .fish-rail { display: none; }
     }
   </style>
 </head>
 <body>
-
-  <!-- 读页小鱼：随滚动游动（「鱼游深水」的字面化） -->
-  <div class="fish-rail" aria-hidden="true"><span class="fish" id="fish">鱼</span></div>
 
   <!-- 顶部导航 -->
   <header class="header">
@@ -648,18 +561,10 @@
       <div class="ghost" aria-hidden="true">鱼</div>
       <div class="hero-grid">
         <div>
-          <!-- 此刻（NOW）：点击或每 8 秒换一条近况，文案在本页脚本 I18N 表里改 -->
-          <button class="now" id="now" type="button" title="戳一下，换一条近况" aria-live="polite">
-            <span class="now-dot"></span>
-            <span class="now-label">NOW</span>
-            <span class="now-text" id="now-text">东湖晨跑 5.2 km · 配速 5:48</span>
-            <span class="now-hint">↻</span>
-          </button>
           <p class="eyebrow" data-i18n="hero.eyebrow">石先生 (STONE) · 独立开发者 · 武汉</p>
           <h1 data-i18n-html="hero.h1">轻巧、克制、<br>本地优先的<br>个人工具<span class="accent">。</span></h1>
           <p class="hero-lead" data-i18n="hero.lead">
-            三言两语，鱼游深水。在嘈杂的云端时代，把数据主权、离线专注与安静呼吸，
-            完整交还给每一位独立使用者。
+            专注于构筑轻巧、克制、本地优先（Local-First）的个人工具，把数据主权与专注呼吸交还给使用者。
           </p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#apps" data-i18n="hero.cta1">浏览自研应用</a>
@@ -741,53 +646,53 @@
         <h2 data-i18n="idea.title">设计理念</h2>
         <span class="section-note">LOCAL-FIRST</span>
       </div>
-      <p class="quote" data-i18n-html="idea.quote">「你的日记和思考属于你，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」</p>
+      <p class="quote" data-i18n-html="idea.quote">「日记与思考属于使用者，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」</p>
       <div class="principles">
         <div class="principle">
           <span class="num" data-i18n="idea.p1.k">01 — 数据主权</span>
           <h4 data-i18n="idea.p1.t">属于自己的存档</h4>
-          <p data-i18n="idea.p1.d">数据沉淀在设备本身的 SQLite，支持完整导出，没有云端绑架。</p>
+          <p data-i18n="idea.p1.d">数据存储于设备本地 SQLite，支持完整导出，没有云端绑定与格式壁垒。</p>
         </div>
         <div class="principle">
           <span class="num" data-i18n="idea.p2.k">02 — 瞬时响应</span>
           <h4 data-i18n="idea.p2.t">打开即写</h4>
-          <p data-i18n="idea.p2.d">零网络请求等待，毫秒级冷启动，专注不被打断。</p>
+          <p data-i18n="idea.p2.d">零网络请求等待，毫秒级冷启动，记录与思考不被打断。</p>
         </div>
         <div class="principle">
           <span class="num" data-i18n="idea.p3.k">03 — 离线可用</span>
-          <h4 data-i18n="idea.p3.t">断网毫无损失</h4>
-          <p data-i18n="idea.p3.d">即便没有网络，所有编辑与浏览功能完整如常。</p>
+          <h4 data-i18n="idea.p3.t">离线无损</h4>
+          <p data-i18n="idea.p3.d">即便完全断网，所有浏览、书写与检索功能完整如常。</p>
         </div>
       </div>
     </div>
   </section>
 
   <div class="wrap">
-    <!-- 长篇随笔 -->
+    <!-- 随笔写作 -->
     <section id="writing">
       <div class="section-head">
-        <h2 data-i18n="writing.title">长篇随笔</h2>
+        <h2 data-i18n="writing.title">随笔写作</h2>
         <a class="section-note" href="https://blog.rockdork.cn/" target="_blank" rel="noopener" style="color: var(--ink-2);">BLOG.ROCKDORK.CN ↗</a>
       </div>
       <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
-        <div class="post-meta" data-i18n-html="post1.meta">2026.04<br><span class="cat">跑步感悟</span></div>
+        <div class="post-meta" data-i18n-html="post1.meta">2026.02<br><span class="cat">随笔思考</span></div>
         <div>
-          <h3 data-i18n="post1.title">跑过四十二公里，与长达一年的独立开发</h3>
-          <p data-i18n="post1.lead">马拉松最痛苦的不是最后五公里，而是前三十公里的配速克制；写软件亦然。</p>
+          <h3 data-i18n="post1.title">为了写下去，我决定先「随便」读一读</h3>
+          <p data-i18n="post1.lead">读书的意义不是精读和笔记，而是速度、成就感和内化输出。</p>
         </div>
       </a>
       <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
-        <div class="post-meta" data-i18n-html="post2.meta">2026.02<br><span class="cat">技术思考</span></div>
+        <div class="post-meta" data-i18n-html="post2.meta">2026.01<br><span class="cat">自在生长</span></div>
         <div>
-          <h3 data-i18n="post2.title">为什么我们执着于「本地优先」架构？</h3>
-          <p data-i18n="post2.lead">数据归属权、端到端同步机制，以及一个单人开发者如何守护使用者的安静记忆。</p>
+          <h3 data-i18n="post2.title">停止内耗，从做一个废人开始</h3>
+          <p data-i18n="post2.lead">如何打破下班后躺平-负罪感-再躺平的怪循环。</p>
         </div>
       </a>
       <a class="post" href="https://blog.rockdork.cn/" target="_blank" rel="noopener">
-        <div class="post-meta" data-i18n-html="post3.meta">2025.11<br><span class="cat">生活记录</span></div>
+        <div class="post-meta" data-i18n-html="post3.meta">2026.02<br><span class="cat">读书札记</span></div>
         <div>
-          <h3 data-i18n="post3.title">给刚出生的你：在数字喧嚣的世界里专注呼吸</h3>
-          <p data-i18n="post3.lead">新晋奶爸的温润手记。关于时间、代码与微小生活。</p>
+          <h3 data-i18n="post3.title">读《局外人》：他不是冷漠，他只是淡然</h3>
+          <p data-i18n="post3.lead">用几个小时读完加缪的小说《局外人》，关于平常、生死与淡然。</p>
         </div>
       </a>
     </section>
@@ -803,26 +708,15 @@
             <strong>石先生 (Stone)</strong>，独立开发者，住在武汉。喜欢跑步、折腾代码与写字，
             新晋奶爸，相信长期主义，享受把想法打磨成实用工具的过程。
           </p>
-          <div class="stats">
-            <div class="stat">
-              <span class="stat-num">2,400<small> km</small></span>
-              <span class="stat-label" data-i18n="stat.run">累计跑量 · RUNNING</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">1:48<small> h</small></span>
-              <span class="stat-label" data-i18n="stat.pb">半马最好成绩 · PB</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num"><span data-i18n="stat.dad.pre">第</span> <span id="dad-days">—</span> <small data-i18n="stat.dad.suf">天</small></span>
-              <span class="stat-label" data-i18n="stat.dad.label">奶爸修行 · DAD LIFE</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">3<small data-i18n="stat.craft.suf"> 件</small></span>
-              <span class="stat-label" data-i18n="stat.craft.label">自研器物 · CRAFTED</span>
-            </div>
+          <div class="about-tags">
+            <span class="tag-badge" data-i18n="tag.dev">💻 独立开发</span>
+            <span class="tag-badge" data-i18n="tag.local">🌱 本地优先</span>
+            <span class="tag-badge" data-i18n="tag.run">🏃 跑步</span>
+            <span class="tag-badge" data-i18n="tag.write">✍️ 写作</span>
+            <span class="tag-badge" data-i18n="tag.dad">🍼 新晋奶爸</span>
           </div>
-          <p data-i18n="about.p2">
-            微信搜一搜「三言二鱼」，关注每周的生活、跑步与产品随笔。
+          <p data-i18n="about.p2" style="margin-top: 18px; color: var(--ink-2); font-size: 14.5px;">
+            微信搜一搜「三言二鱼」，关注关于生活、跑步与产品的随笔。
           </p>
           <div class="about-links">
             <a href="https://github.com/rockdork" target="_blank" rel="noopener">GitHub ↗</a>
@@ -840,8 +734,8 @@
     <!-- 页脚 -->
     <footer class="footer">
       <div class="footer-inner">
-        <span data-i18n="footer.left">© 2026 三言二鱼 · 石先生手写于武汉</span>
-        <span class="mono" data-i18n="footer.right">手写 HTML · 零依赖 · 无追踪</span>
+        <span data-i18n="footer.left">© 2026 三言二鱼 · rockdork.cn</span>
+        <span class="mono" data-i18n="footer.right">手写 HTML · 零依赖 · 纯静态</span>
       </div>
     </footer>
   </div>
@@ -851,7 +745,7 @@
   <script>
     (function () {
       // =========================================================
-      // 中英文案表：新增文案时两列都要加；英文版产品名可按需调整
+      // 中英文案表
       // =========================================================
       var I18N = {
         zh: {
@@ -860,7 +754,7 @@
           'nav.apps': '应用', 'nav.idea': '理念', 'nav.writing': '随笔', 'nav.about': '关于', 'nav.blog': '博客 ↗',
           'hero.eyebrow': '石先生 (STONE) · 独立开发者 · 武汉',
           'hero.h1': '轻巧、克制、<br>本地优先的<br>个人工具<span class="accent">。</span>',
-          'hero.lead': '三言两语，鱼游深水。在嘈杂的云端时代，把数据主权、离线专注与安静呼吸，完整交还给每一位独立使用者。',
+          'hero.lead': '专注于构筑轻巧、克制、本地优先（Local-First）的个人工具，把数据主权与专注呼吸交还给使用者。',
           'hero.cta1': '浏览自研应用', 'hero.cta2': '进入博客 ↗',
           'apps.title': '自研应用', 'apps.note': '03 项 · 全部本地优先',
           'app1.name': '三言日记',
@@ -872,40 +766,30 @@
           'app3.desc': '轻量云图床。拖拽直传 COS、七牛云与 GitHub，一键生成 Markdown 链接。',
           'app3.open': '在线使用 ↗',
           'idea.title': '设计理念',
-          'idea.quote': '「你的日记和思考属于你，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」',
+          'idea.quote': '「日记与思考属于使用者，<br>不依赖任何第三方的云端服务器<span class="accent">。</span>」',
           'idea.p1.k': '01 — 数据主权', 'idea.p1.t': '属于自己的存档',
-          'idea.p1.d': '数据沉淀在设备本身的 SQLite，支持完整导出，没有云端绑架。',
+          'idea.p1.d': '数据存储于设备本地 SQLite，支持完整导出，没有云端绑定与格式壁垒。',
           'idea.p2.k': '02 — 瞬时响应', 'idea.p2.t': '打开即写',
-          'idea.p2.d': '零网络请求等待，毫秒级冷启动，专注不被打断。',
-          'idea.p3.k': '03 — 离线可用', 'idea.p3.t': '断网毫无损失',
-          'idea.p3.d': '即便没有网络，所有编辑与浏览功能完整如常。',
-          'writing.title': '长篇随笔',
-          'post1.meta': '2026.04<br><span class="cat">跑步感悟</span>',
-          'post1.title': '跑过四十二公里，与长达一年的独立开发',
-          'post1.lead': '马拉松最痛苦的不是最后五公里，而是前三十公里的配速克制；写软件亦然。',
-          'post2.meta': '2026.02<br><span class="cat">技术思考</span>',
-          'post2.title': '为什么我们执着于「本地优先」架构？',
-          'post2.lead': '数据归属权、端到端同步机制，以及一个单人开发者如何守护使用者的安静记忆。',
-          'post3.meta': '2025.11<br><span class="cat">生活记录</span>',
-          'post3.title': '给刚出生的你：在数字喧嚣的世界里专注呼吸',
-          'post3.lead': '新晋奶爸的温润手记。关于时间、代码与微小生活。',
+          'idea.p2.d': '零网络请求等待，毫秒级冷启动，记录与思考不被打断。',
+          'idea.p3.k': '03 — 离线可用', 'idea.p3.t': '离线无损',
+          'idea.p3.d': '即便完全断网，所有浏览、书写与检索功能完全如常。',
+          'writing.title': '随笔写作',
+          'post1.meta': '2026.02<br><span class="cat">随笔思考</span>',
+          'post1.title': '为了写下去，我决定先「随便」读一读',
+          'post1.lead': '读书的意义不是精读和笔记，而是速度、成就感和内化输出。',
+          'post2.meta': '2026.01<br><span class="cat">自在生长</span>',
+          'post2.title': '停止内耗，从做一个废人开始',
+          'post2.lead': '如何打破下班后躺平-负罪感-再躺平的怪循环。',
+          'post3.meta': '2026.02<br><span class="cat">读书札记</span>',
+          'post3.title': '读《局外人》：他不是冷漠，他只是淡然',
+          'post3.lead': '用几个小时读完加缪的小说《局外人》，关于平常、生死与淡然。',
           'about.title': '关于',
           'about.p1': '<strong>石先生 (Stone)</strong>，独立开发者，住在武汉。喜欢跑步、折腾代码与写字，新晋奶爸，相信长期主义，享受把想法打磨成实用工具的过程。',
-          'stat.run': '累计跑量 · RUNNING', 'stat.pb': '半马最好成绩 · PB',
-          'stat.dad.pre': '第', 'stat.dad.suf': '天', 'stat.dad.label': '奶爸修行 · DAD LIFE',
-          'stat.craft.suf': ' 件', 'stat.craft.label': '自研器物 · CRAFTED',
-          'about.p2': '微信搜一搜「三言二鱼」，关注每周的生活、跑步与产品随笔。',
+          'tag.dev': '💻 独立开发', 'tag.local': '🌱 本地优先', 'tag.run': '🏃 跑步', 'tag.write': '✍️ 写作', 'tag.dad': '🍼 新晋奶爸',
+          'about.p2': '微信搜一搜「三言二鱼」，关注关于生活、跑步与产品的随笔。',
           'about.links.blog': '独立博客 ↗',
-          'footer.left': '© 2026 三言二鱼 · 石先生手写于武汉',
-          'footer.right': '手写 HTML · 零依赖 · 无追踪',
-          now: [
-            '东湖晨跑 5.2 km · 配速 5:48',
-            '重构 三言日记的端到端同步通道',
-            '宝宝睡后的深夜：改 bug，也写随笔',
-            '读《设计的形式》：好工具应当像一把趁手的刻刀',
-            '公众号「三言二鱼」本周更文中',
-            '构思下一篇随笔：跑者与独立开发的配速学'
-          ]
+          'footer.left': '© 2026 三言二鱼 · rockdork.cn',
+          'footer.right': '手写 HTML · 零依赖 · 纯静态'
         },
         en: {
           'meta.title': 'Sanyan Er Yu · Indie Craft Studio',
@@ -913,7 +797,7 @@
           'nav.apps': 'Apps', 'nav.idea': 'Ideas', 'nav.writing': 'Essays', 'nav.about': 'About', 'nav.blog': 'Blog ↗',
           'hero.eyebrow': 'Stone · Indie Developer · Wuhan',
           'hero.h1': 'Lightweight, restrained,<br>local-first<br>personal tools<span class="accent">.</span>',
-          'hero.lead': 'A few words, deep waters. In a noisy, cloud-bound era, local-first software hands data ownership, offline focus, and quiet breathing back to every independent user.',
+          'hero.lead': 'Crafting lightweight, restrained, local-first personal tools that return data ownership and quiet focus back to the user.',
           'hero.cta1': 'Browse the apps', 'hero.cta2': 'Visit the blog ↗',
           'apps.title': 'Self-crafted apps', 'apps.note': '03 apps · all local-first',
           'app1.name': 'Sanyan Diary',
@@ -933,32 +817,22 @@
           'idea.p3.k': '03 — Offline ready', 'idea.p3.t': 'Fully functional offline',
           'idea.p3.d': 'Every editing and browsing feature works exactly the same without a network.',
           'writing.title': 'Essays',
-          'post1.meta': '2026.04<br><span class="cat">On running</span>',
-          'post1.title': 'Forty-two kilometres, and a year of building alone',
-          'post1.lead': 'The hardest part of a marathon is not the last five kilometres, but holding pace through the first thirty. So it is with software.',
-          'post2.meta': '2026.02<br><span class="cat">Engineering</span>',
-          'post2.title': 'Why we insist on local-first architecture',
-          'post2.lead': 'Data ownership, end-to-end sync, and how a one-person studio guards its users’ quiet memory.',
-          'post3.meta': '2025.11<br><span class="cat">Life</span>',
-          'post3.title': 'To my newborn: breathing in a noisy digital world',
-          'post3.lead': 'A new dad’s gentle notes on time, code, and small daily life.',
+          'post1.meta': '2026.02<br><span class="cat">Reading & Writing</span>',
+          'post1.title': 'To Keep Writing, I Decided to Just Read Lightly First',
+          'post1.lead': 'The joy of reading lies in momentum and organic output, not forced precision notes.',
+          'post2.meta': '2026.01<br><span class="cat">Growth</span>',
+          'post2.title': 'Stop Inner Friction: Starting by Letting Yourself Rest',
+          'post2.lead': 'Breaking the cycle of guilt and exhaustion after a long workday.',
+          'post3.meta': '2026.02<br><span class="cat">Book Notes</span>',
+          'post3.title': 'On The Stranger: He Isn’t Cold, He Is at Peace',
+          'post3.lead': 'Reflections on Camus’ The Stranger — on the ordinary, mortality, and tranquility.',
           'about.title': 'About',
           'about.p1': '<strong>Stone (石先生)</strong> is an independent developer in Wuhan. He runs, tinkers with code, and writes — a new dad who believes in the long game, shaping ideas into useful tools.',
-          'stat.run': 'Running · Total km', 'stat.pb': 'Half-marathon PB',
-          'stat.dad.pre': 'Day', 'stat.dad.suf': '', 'stat.dad.label': 'DAYS AS A DAD',
-          'stat.craft.suf': '', 'stat.craft.label': 'Tools crafted',
-          'about.p2': 'Search 三言二鱼 on WeChat for weekly notes on running, code, and life.',
+          'tag.dev': '💻 Indie Dev', 'tag.local': '🌱 Local-First', 'tag.run': '🏃 Running', 'tag.write': '✍️ Writing', 'tag.dad': '🍼 New Dad',
+          'about.p2': 'Search 三言二鱼 on WeChat for essays on running, code, and life.',
           'about.links.blog': 'Blog ↗',
-          'footer.left': '© 2026 Sanyan Er Yu · Hand-written in Wuhan by Stone',
-          'footer.right': 'Hand-written HTML · zero deps · no tracking',
-          now: [
-            'Morning run at East Lake · 5.2 km, pace 5:48',
-            'Refactoring Sanyan Diary’s end-to-end sync',
-            'Late night, baby asleep: fixing bugs and writing essays',
-            'Reading: a good tool should be like a well-fitted chisel',
-            'This week’s post underway for the WeChat journal',
-            'Outlining the next essay: pacing, running, and indie software'
-          ]
+          'footer.left': '© 2026 Sanyan Er Yu · rockdork.cn',
+          'footer.right': 'Hand-written HTML · zero deps · static'
         }
       };
 
@@ -974,10 +848,6 @@
         return l.indexOf('zh') === 0 ? 'zh' : 'en';
       }
       var lang = storedLang() || autoLang();
-
-      var nowText = document.getElementById('now-text');
-      var nowIndex = 0;
-      var nowList = I18N.zh.now;
 
       function applyLang(next, save) {
         lang = next;
@@ -1001,55 +871,7 @@
         for (var k = 0; k < btns.length; k++) {
           btns[k].classList.toggle('is-active', btns[k].getAttribute('data-lang') === next);
         }
-        // 近况文案随语言重置
-        nowList = dict.now;
-        nowIndex = 0;
-        if (nowText) { nowText.style.opacity = '1'; nowText.textContent = nowList[0]; }
       }
-
-      // ===== 此刻（NOW）近况轮播：点击或每 8 秒换一条 =====
-      var nowBtn = document.getElementById('now');
-      var nowTimer = null;
-      function swapNow(text) {
-        nowText.style.opacity = '0';
-        setTimeout(function () {
-          nowText.textContent = text;
-          nowText.style.opacity = '1';
-        }, 180);
-      }
-      function nextNow() {
-        nowIndex = (nowIndex + 1) % nowList.length;
-        swapNow(nowList[nowIndex]);
-      }
-      if (nowBtn && nowText) {
-        nowBtn.addEventListener('click', function () {
-          nextNow();
-          clearInterval(nowTimer);
-          nowTimer = setInterval(nextNow, 8000);
-        });
-        nowTimer = setInterval(nextNow, 8000);
-      }
-
-      // ===== 奶爸修行天数（按宝宝实际生日调整） =====
-      var dadEl = document.getElementById('dad-days');
-      if (dadEl) {
-        var birth = new Date(2025, 10, 1); // 2025-11-01，按实际生日修改
-        var days = Math.max(1, Math.floor((Date.now() - birth.getTime()) / 86400000));
-        dadEl.textContent = days;
-      }
-
-      // ===== 读页小鱼：随滚动进度游动 =====
-      var fish = document.getElementById('fish');
-      function swim() {
-        if (!fish) return;
-        var doc = document.documentElement;
-        var max = doc.scrollHeight - window.innerHeight;
-        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        fish.style.top = 'calc(' + (p * 100).toFixed(2) + '% - 10px)';
-      }
-      window.addEventListener('scroll', swim, { passive: true });
-      window.addEventListener('resize', swim);
-      swim();
 
       // ===== 语言切换器绑定 + 初始应用 =====
       var switchBtns = document.querySelectorAll('.lang-switch button');
